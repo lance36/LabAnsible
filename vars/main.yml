@@ -1,0 +1,24 @@
+#-----> Create Aggregate
+
+aggregates:
+    - { aggregate_name: aggr1, state: online, nodes: cluster1-01 }
+    - { aggregate_name: aggr2, state: online, nodes: cluster1-01 }
+
+#-----> Create Storage Servers 
+SVMs: 
+    - { svm_name: svm1, state: present, rootvol_aggregate: aggr1, protocols: nfs, root_vol: svm1_root }
+    - { svm_name: svm2, state: present, rootvol_aggregate: aggr1, protocols: nfs, root_vol: svm2_root }
+
+#-----> Create Logical Interfaces (LIFs) 
+Create_LIFS:
+    - { LIF_Name: nfs_svm2, LIF_State: present, LIF_IP: 192.168.0.120, LIF_Protocol: nfs, 
+        svm_lif: svm2, LIF_home_node: cluster1-01, LIF_Role: data, firewall_policy: mgmt }
+    
+#-----> Create Volumes
+Volumes:
+    - { Name: ansible_created, Size: 1, Which_SVM: svm2, aggregate_for_vol: aggr1 }
+
+##----> Vaulted Credentials 
+netapp_hostname: 192.168.0.101
+netapp_username: admin
+netapp_password: Netapp1!
