@@ -1,0 +1,7 @@
+---
+  - hosts: rhel
+    tasks:
+     - name: Install nfs
+       yum:
+         name: nfs-utils
+         state: present
