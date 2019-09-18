@@ -17,17 +17,25 @@ docker volume create ansible
 # Run docker container
 docker run -it -v ansible:/etc/ansible -v ssh-keys:/root/.ssh schmot1s/netapp-ansible /bin/bash
 
-# create ansible directorys
-mkdir /etc/ansible/roles
-
 # clone github repo
-cd /etc/ansible/roles
-git clone https://github.com/auto-store/lod-ansible 
+cd /etc/ansible
+git clone https://github.com/auto-store/lod-ansible-"user"
 
-# run playbook for single volume 
+# create and share ssh-keys with remote host
+ssh-keygen create
+ssh-copy-id root@192.168.0.69
+
+# add host to hosts file
+vi /etc/ansible/hosts
+
+[rhel]
+192.168.0.69
+
+# run playbook for single volume
+change into repo directory ---> cd lod-ansible-"user"
 ansible-playbook flexvol-create.yml
 
 # run ansible role
-ansible-playbook lod-ansible.yml 
+ansible-playbook cluster-role.yml 
 
 
