@@ -1,6 +1,6 @@
 ---
 Mount_NFS:
-    - { user: ansible-user, group: wheel, volume: vol1, nfs_lif: 192.168.0.120 }
+    - { user: ansible, group: wheel, volume: vol1, nfs_lif: 192.168.0.120 }
 
 
 
