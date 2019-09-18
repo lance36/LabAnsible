@@ -22,14 +22,11 @@ cd /etc/ansible
 git clone https://github.com/auto-store/lod-ansible-"user"
 
 # create and share ssh-keys with remote host
-ssh-keygen create
+ssh-keygen 
 ssh-copy-id root@192.168.0.69
 
-# add host to hosts file
-vi /etc/ansible/hosts
-
-[rhel]
-192.168.0.69
+# copy hosts file to correct directory
+cp /etc/ansible/lod-ansible-"user"/hosts /etc/ansible/
 
 # run playbook for single volume
 change into repo directory ---> cd lod-ansible-"user"
