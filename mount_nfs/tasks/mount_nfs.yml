@@ -7,7 +7,7 @@
     state: mounted
   with_items: "{{ Mount_NFS }}"
 
-- shell: df -H | grep vol1
+- shell: df -H 
   register: result
 
 - debug: var=result
