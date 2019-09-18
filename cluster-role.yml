@@ -1,5 +1,5 @@
 ---
 - name: Deploy ONTAP Cluster config
   hosts: localhost
-  tasks:
-    - include_role: /etc/ansible/lod-ansible/cluster
+  roles:
+    - role: /etc/ansible/lod-ansible/cluster
