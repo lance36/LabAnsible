@@ -3,4 +3,8 @@
   hosts: localhost
   roles:
     - role: /etc/ansible/lod-ansible/cluster
+
+- name: Mount export to rhel
+  hosts: rhel
+  roles:  
     - role: /etc/ansible/lod-ansible/mount_nfs
