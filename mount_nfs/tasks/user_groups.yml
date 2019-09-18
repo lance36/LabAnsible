@@ -10,9 +10,9 @@
        groups: wheel 
     with_items: "{{ Mount_NFS }}"
        
-  #- name: Allow wheel group to have passwordless sudo
-  #  lineinfile:
-  #      dest: /etc/sudoers
-  #      state: present
-  #      regexp: '^%wheel'
-  #      line: '%wheel ALL=(ALL) NOPASSWD: ALL'
+  - name: Allow wheel group to have passwordless sudo
+    lineinfile:
+        dest: /etc/sudoers
+        state: present
+        regexp: '^%wheel'
+        line: '%wheel ALL=(ALL) NOPASSWD: ALL'
