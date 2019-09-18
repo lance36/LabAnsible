@@ -1,0 +1,6 @@
+---
+- name: Deploy ONTAP Cluster config
+  hosts: localhost
+  roles:
+    - role: /etc/ansible/lod-ansible/cluster
+    - role: /etc/ansible/lod-ansible/mount_nfs

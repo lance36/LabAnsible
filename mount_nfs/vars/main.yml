@@ -1,0 +1,7 @@
+---
+Mount_NFS:
+    - { user: ansible-user, group: wheel, volume: vol1, nfs_lif: 192.168.0.120 }
+
+
+
+    
