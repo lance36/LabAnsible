@@ -1,0 +1,16 @@
+# default vars
+#-----> Aggregate Setup
+disk_count: 1
+
+#-----> LIF Setup: File
+LIF_netmask: 255.255.255.0
+LIF_home_port: e0b
+
+# failover_policy: local-only
+# is_auto_revert: true
+
+#-----> SVM
+root_volume_security_style: mixed
+root_volume: root
+admin_status: up
+protocols: nfs

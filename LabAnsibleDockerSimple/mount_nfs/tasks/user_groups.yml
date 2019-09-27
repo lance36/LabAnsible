@@ -1,0 +1,12 @@
+---
+  - name: Add Groups
+    group: 
+       name: "{{ item.group }}"
+    with_items: "{{ Mount_NFS }}"
+
+  - name: Add Users + Assign to Group
+    user:
+       name: "{{ item.user }}"
+       groups: wheel 
+    with_items: "{{ Mount_NFS }}"
+       
