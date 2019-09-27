@@ -16,10 +16,10 @@ password: Netapp1!
 git clone https://github.com/YvosOnTheHub/LabAnsible.git
 
 # copy the Trident backend file in /etc/netappdvp
-cp ~/LabAnsible/LabAnsibleDockerPlugin/config-ontap-nas-default.json /etc/netappdvp/
+cp ~/LabAnsible/LabAnsibleDockerPlugin/config-ontap-nas.json /etc/netappdvp/
 
 # install Trident as a Docker plugin
-docker plugin install netapp/trident-plugin:18.07 --alias ontap-nas --grant-all-permissions config=config-ontap-nas-default.json
+docker plugin install netapp/trident-plugin:18.07 --alias ontap-nas --grant-all-permissions config=config-ontap-nas.json
 
 # create persistent docker volumes (one local & one on NetApp backend)
 docker volume create ssh-keys
@@ -47,12 +47,15 @@ cp hosts /etc/ansible/
 ansible -m ping rhel
 
 # install NFS utils on RHEL Host with ansible playbook  (change into repository directory!)
-ansible-playbook install-nfs-utils.yml
+ansible-playbook 1-install-nfs-utils.yml
 
 # run playbook for single volume just to try it out
-ansible-playbook flexvol-create.yml
+ansible-playbook 2-flexvol-create.yml
 
-# run role to configure ONTAP cluster (inspect it in VSCODE to see what it does!)
-ansible-playbook cluster-role.yml 
+# run role to configure a new SVM (inspect it in VSCODE to see what it does!)
+ansible-playbook 3-svm-role.yml 
+
+# run role to remove the mounted resources & delete the SVM
+ansible-playbook 4-svm-cleanup.yml 
 
 

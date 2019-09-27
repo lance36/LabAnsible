@@ -1,0 +1,18 @@
+#-----> Mount NFS to host
+Mount_NFS:
+    - { local_volume: DEMO_ANSIBLE_vol1, volume: vol1, nfs_lif: 192.168.0.120 }
+    - { local_volume: DEMO_ANSIBLE_vol2, volume: vol2, nfs_lif: 192.168.0.120 }
+
+#-----> FlexVols to delete
+Volumes:
+    - { Name: vol1, Size: 50, Which_SVM: DEMO_ANSIBLE, aggregate_for_vol: aggr1 }
+    - { Name: vol2, Size: 50, Which_SVM: DEMO_ANSIBLE, aggregate_for_vol: aggr1 }
+
+#-----> SVM to delete 
+SVMs: 
+    - { svm_name: DEMO_ANSIBLE, state: present, rootvol_aggregate: aggr1, protocols: nfs, root_vol: ansible_root, root_vol_sec_style: unix }
+
+##----> Vaulted Credentials 
+netapp_hostname: 192.168.0.101
+netapp_username: admin
+netapp_password: Netapp1!
