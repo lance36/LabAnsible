@@ -1,5 +1,0 @@
----
-- name: Cleanup the SVM
-  hosts: localhost
-  roles:
-    - role: /etc/ansible/lod-ansible/4-svm-cleanup

@@ -5,39 +5,42 @@ terminal --> new terminal
 
 (in new terminal)  
 cd Documents
-git clone https://github.com/YvosOnTheHub/LabAnsible.git
+git clone https://github.com/YvosOnTheHub/LabAnsible.git 
 cd LabAnsible/LabAnsibleDockerPlugin
 
-# ssh into "Rhel5"
+# ssh into each server to exchange ssh keys (for instance "Rhel4", "Rhel5", "Rhel6"), password being Netapp1!
+ssh root@192.168.0.64   
 ssh root@192.168.0.66   
-password: Netapp1!
+ssh root@192.168.0.69   
+
 
 # clone the repository in the centos environment
 git clone https://github.com/YvosOnTheHub/LabAnsible.git
 
 # copy the Trident backend file in /etc/netappdvp
-cp ~/LabAnsible/LabAnsibleDockerPlugin/config-ontap-nas.json /etc/netappdvp/
+cp ~/LabAnsible/LabAnsibleDockerPlugin/0-Trident-config/config-ontap-nas.json /etc/netappdvp/
 
-# install Trident as a Docker plugin
-docker plugin install netapp/trident-plugin:18.07 --alias ontap-nas --grant-all-permissions config=config-ontap-nas.json
+# install Trident as a Docker plugin & check it is active
+docker plugin install netapp/trident-plugin:18.07 --alias ontap-nas --grant-all-permissions config=config-ontap-nas.json 
+docker plugin ls
 
 # create persistent docker volumes (one local & one on NetApp backend)
-docker volume create ssh-keys
-docker volume create -d ontap-nas --name ansible -o size=1g
-docker volume ls
+docker volume create ssh-keys 
+docker volume create -d ontap-nas --name ansible -o size=1g 
+docker volume ls 
 
 # Run docker container with NetApp Ansible modules configured
-docker run -it -v ansible:/etc/ansible -v ssh-keys:/root/.ssh schmot1s/netapp-ansible /bin/bash
+docker run -it -v ansible:/etc/ansible -v ssh-keys:/root/.ssh schmots1/netapp-ansible /bin/bash
 
 ### you are now in the container
 
 # clone github repo
-cd /etc/ansible/
-git clone https://github.com/YvosOnTheHub/LabAnsible.git
-cd LabAnsible/LabAnsibleDockerPlugin
+cd /etc/ansible/ 
+git clone https://github.com/YvosOnTheHub/LabAnsible.git 
+cd LabAnsible/LabAnsibleDockerPlugin 
 
 # create and share ssh-keys with remote RHEL host
-ssh-keygen 
+ssh-keygen (keep the default values for all inputs, ie press 'enter' a few times)
 ssh-copy-id root@192.168.0.66
 
 # copy hosts file to correct directory

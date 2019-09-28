@@ -31,7 +31,7 @@
     validate_certs: false
   with_items: "{{ Create_LIFS }}" 
 
-- name: create route
+- name: Create Route
   na_ontap_net_routes:
     state: present
     destination: "{{ item.Destination }}"
@@ -41,6 +41,8 @@
     hostname: "{{ netapp_hostname }}"
     username: "{{ netapp_username }}"
     password: "{{ netapp_password }}"
+    https: true
+    validate_certs: false
   with_items: "{{ Create_Routes }}"
 
 - name: Create ExportPolicyRule
@@ -99,12 +101,6 @@
     hostname: "{{ netapp_hostname }}"
     username: "{{ netapp_username }}"
     password: "{{ netapp_password }}"
+    https: true
+    validate_certs: false
   with_items: "{{ Junction_Mount }}"
-
-- name: Mount NFS to some directories
-  mount:
-    path: "/mnt/{{ item.get ('local_volume') }}"
-    src:  "{{ item.get ('nfs_lif') }}:/{{ item.get ('volume') }}"
-    fstype: nfs
-    state: mounted
-  with_items: "{{ Mount_NFS }}"

@@ -13,8 +13,8 @@ Create_Routes:
 
 #-----> Create Volumes
 Volumes:
-    - { Name: vol1, Size: 50, Which_SVM: DEMO_ANSIBLE, aggregate_for_vol: aggr1 }
-    - { Name: vol2, Size: 50, Which_SVM: DEMO_ANSIBLE, aggregate_for_vol: aggr1 }
+    - { Name: vol1, Size: 1, Which_SVM: DEMO_ANSIBLE, aggregate_for_vol: aggr1 }
+    - { Name: vol2, Size: 1, Which_SVM: DEMO_ANSIBLE, aggregate_for_vol: aggr1 }
 
 #-----> Mount Volumes to junction Path
 Junction_Mount:

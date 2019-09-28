@@ -1,5 +1,0 @@
----
-- name: Deploy ONTAP Cluster config
-  hosts: localhost
-  roles:
-    - role: /etc/ansible/lod-ansible/3-svm-create
