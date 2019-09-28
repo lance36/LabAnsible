@@ -8,11 +8,9 @@ cd Documents
 git clone https://github.com/YvosOnTheHub/LabAnsible.git 
 cd LabAnsible/LabAnsibleDockerPlugin
 
-# ssh into each server to exchange ssh keys (for instance "Rhel4", "Rhel5", "Rhel6"), password being Netapp1!
-ssh root@192.168.0.64   
-ssh root@192.168.0.66   
-ssh root@192.168.0.69   
-
+# ssh into host5
+ssh root@192.168.0.66
+password: Netapp1!
 
 # clone the repository in the centos environment
 git clone https://github.com/YvosOnTheHub/LabAnsible.git
@@ -39,9 +37,11 @@ cd /etc/ansible/
 git clone https://github.com/YvosOnTheHub/LabAnsible.git 
 cd LabAnsible/LabAnsibleDockerPlugin 
 
-# create and share ssh-keys with remote RHEL host
+# create and share ssh-keys with remote RHEL host (for instance "Rhel4", "Rhel5", "Rhel6")
 ssh-keygen (keep the default values for all inputs, ie press 'enter' a few times)
+ssh-copy-id root@192.168.0.64
 ssh-copy-id root@192.168.0.66
+ssh-copy-id root@192.168.0.69
 
 # copy hosts file to correct directory
 cp hosts /etc/ansible/
@@ -56,9 +56,9 @@ ansible-playbook 1-install-nfs-utils.yml
 ansible-playbook 2-flexvol-create.yml
 
 # run role to configure a new SVM (inspect it in VSCODE to see what it does!)
-ansible-playbook 3-svm-role.yml 
+ansible-playbook 3-svm-role_and_mount-resources.yml 
 
 # run role to remove the mounted resources & delete the SVM
-ansible-playbook 4-svm-cleanup.yml 
+ansible-playbook 4-cleanup.yml 
 
 

@@ -1,16 +1,4 @@
 ---
-- name: Unmount the NFS shares
-  mount:
-    path: "/mnt/{{ item.get ('local_volume') }}"
-    state: unmounted
-  with_items: "{{ Mount_NFS }}"
-
-- name: Delete the directories
-  file:
-    path: "/mnt/{{ item.get ('local_volume') }}"
-    state: absent
-  with_items: "{{ Mount_NFS }}"
-
 - name: Delete FlexVol
   na_ontap_volume:
     state: absent
