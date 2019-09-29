@@ -7,7 +7,9 @@
     state: mounted
   with_items: "{{ Mount_NFS }}"
 
-- shell: df -H 
+- shell: df -H /home/*
   register: result
 
-- debug: var=result
+- name: Display DF
+  debug:
+    var: result

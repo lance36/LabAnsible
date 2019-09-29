@@ -9,4 +9,4 @@ Scenarios
 ---------
 1. Use Ansible as simple Docker Container
 2. Use Ansible as a Docker Container, which mounts a persistent volume with Trident for Docker
-3. Use Ansible as a Kubernetes App, with PVC managed with Trident
+3. Use Ansible as a Kubernetes App

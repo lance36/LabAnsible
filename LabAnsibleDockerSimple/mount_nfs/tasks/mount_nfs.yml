@@ -10,5 +10,7 @@
 - shell: df -H 
   register: result
 
-- debug: var=result
+- name: Display DF
+  debug:
+    var: result
 

@@ -96,7 +96,6 @@
  
 - name: Mount volumes to Junction Path
   na_ontap_command:
-    validate_certs: false
     command: volume mount -vserver "{{ item.SVM }}" -volume "{{ item.volume }}" -junction-path "{{ item.junction }}"
     hostname: "{{ netapp_hostname }}"
     username: "{{ netapp_username }}"
