@@ -25,7 +25,7 @@
     (write down the pod name)
 
 # Enter the Ansible pod
-    kubectl exec -it -n *ansible you_ansible_pod_name* -- /bin/bash
+    kubectl exec -it -n ansible *you_ansible_pod_name* -- /bin/bash
 
 =>  you are now in the container
 
