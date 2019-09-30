@@ -61,3 +61,8 @@
 # Exit the container
     exit
 
+# If you need to also remove the Ansible App from Kubernetes
+    kubectl delete deploy ansible -n ansible
+    kubectl delete pvc ansible-content -n ansible
+    kubectl delete pvc ansible-ssh -n ansible
+    kubectl delete namespace ansible

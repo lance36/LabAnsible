@@ -10,7 +10,7 @@ LIF_home_port: e0b
 # is_auto_revert: true
 
 #-----> SVM
-root_volume_security_style: mixed
+root_volume_security_style: unix
 root_volume: root
 admin_status: up
 protocols: nfs

@@ -46,3 +46,6 @@ terminal --> new terminal
 
 # Run the ONTAP cluster role then a role to mount an NFS export to RHEL host
     ansible-playbook 2-cluster-role-mount-nfs.yml
+
+# Run "role" to remove the mounted resources & delete the SVM
+    ansible-playbook 3-cleanup.yml 

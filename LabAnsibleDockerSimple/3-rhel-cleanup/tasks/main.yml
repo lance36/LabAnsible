@@ -11,7 +11,7 @@
     state: absent
   with_items: "{{ Mount_NFS }}"
 
-- shell: df -H /home/
+- shell: df -H 
   register: result
 
 - name: Display DF
