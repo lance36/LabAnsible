@@ -1,0 +1,33 @@
+#-----> Create Storage Servers 
+SVMs: 
+    - { svm_name: DEMO_ANSIBLE, state: present, rootvol_aggregate: aggr1, protocols: nfs, root_vol: ansible_root, root_vol_sec_style: unix }
+    
+#-----> Create Logical Interfaces (LIFs) 
+Create_LIFS:
+    - { LIF_Name: nfs_svm2, LIF_State: present, LIF_IP: 192.168.0.120, LIF_Protocol: nfs, 
+        svm_lif: DEMO_ANSIBLE, LIF_home_node: cluster1-01, LIF_Role: data, firewall_policy: mgmt-nfs, LIF_netmask: 255.255.255.0, LIF_home_port: e0c }
+
+#-----> Create Routes
+Create_Routes:
+    - { Destination: 192.168.0.0/16, Gateway: 192.168.0.1, Metric: 30, Which_SVM: DEMO_ANSIBLE }
+
+#-----> Create Volumes
+Volumes:
+    - { Name: vol1, Size: 1, Which_SVM: DEMO_ANSIBLE, aggregate_for_vol: aggr1 }
+    - { Name: vol2, Size: 1, Which_SVM: DEMO_ANSIBLE, aggregate_for_vol: aggr1 }
+
+#-----> Mount Volumes to junction Path
+Junction_Mount:
+    - { volume: vol1, SVM: DEMO_ANSIBLE, junction: /vol1 }
+    - { volume: vol2, SVM: DEMO_ANSIBLE, junction: /vol2 }
+
+#-----> Mount NFS to host
+Mount_NFS:
+    - { local_volume: DEMO_ANSIBLE_vol1, volume: vol1, nfs_lif: 192.168.0.120 }
+    - { local_volume: DEMO_ANSIBLE_vol2, volume: vol2, nfs_lif: 192.168.0.120 }
+
+
+##----> Vaulted Credentials 
+netapp_hostname: 192.168.0.101
+netapp_username: admin
+netapp_password: Netapp1!
