@@ -1,0 +1,4 @@
+#-----> Mount NFS to host
+Mount_NFS:
+    - { local_volume: DEMO_ANSIBLE_vol1, volume: vol1, nfs_lif: 192.168.0.120 }
+    - { local_volume: DEMO_ANSIBLE_vol2, volume: vol2, nfs_lif: 192.168.0.120 }

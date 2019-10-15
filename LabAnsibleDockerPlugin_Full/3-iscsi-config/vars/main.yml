@@ -1,0 +1,38 @@
+#-----> Create iGroup
+igroups: 
+    - { svm_name: DEMO_ANSIBLE, igroup_name: rhel4, ostype: linux }
+    - { svm_name: DEMO_ANSIBLE, igroup_name: rhel5, ostype: linux }
+    - { svm_name: DEMO_ANSIBLE, igroup_name: rhel6, ostype: linux }
+    
+#-----> Add IQNs to iGroup 
+iqns:
+    - { svm_name: DEMO_ANSIBLE, igroup_name: rhel4, iqn_name: iqn.1994-05.com.redhat:rhel4.demo.netapp.com }
+    - { svm_name: DEMO_ANSIBLE, igroup_name: rhel5, iqn_name: iqn.1994-05.com.redhat:rhel5.demo.netapp.com }
+    - { svm_name: DEMO_ANSIBLE, igroup_name: rhel6, iqn_name: iqn.1994-05.com.redhat:rhel6.demo.netapp.com }
+
+#-----> Create Volumes & LUNs
+luns:
+    - { name: lun1, vol_name: rhel4_lun, aggr: aggr1, svm_name: DEMO_ANSIBLE, lun_size: 1, ostype: linux, space_reserve: false, igroup: rhel4 }
+    - { name: lun1, vol_name: rhel5_lun, aggr: aggr1, svm_name: DEMO_ANSIBLE, lun_size: 1, ostype: linux, space_reserve: false, igroup: rhel5 }
+    - { name: lun1, vol_name: rhel6_lun, aggr: aggr1, svm_name: DEMO_ANSIBLE, lun_size: 1, ostype: linux, space_reserve: false, igroup: rhel6 }
+
+#-----> Create Volumes
+Volumes:
+    - { Name: vol1, Size: 1, Which_SVM: DEMO_ANSIBLE, aggregate_for_vol: aggr1 }
+    - { Name: vol2, Size: 1, Which_SVM: DEMO_ANSIBLE, aggregate_for_vol: aggr1 }
+
+#-----> Mount Volumes to junction Path
+Junction_Mount:
+    - { volume: vol1, SVM: DEMO_ANSIBLE, junction: /vol1 }
+    - { volume: vol2, SVM: DEMO_ANSIBLE, junction: /vol2 }
+
+#-----> Mount NFS to host
+Mount_NFS:
+    - { local_volume: DEMO_ANSIBLE_vol1, volume: vol1, nfs_lif: 192.168.0.120 }
+    - { local_volume: DEMO_ANSIBLE_vol2, volume: vol2, nfs_lif: 192.168.0.120 }
+
+
+##----> Vaulted Credentials 
+netapp_hostname: 192.168.0.101
+netapp_username: admin
+netapp_password: Netapp1!

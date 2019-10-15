@@ -1,6 +1,6 @@
 - name: Create SVM
   na_ontap_svm:
-    state: "{{ item.state }}"
+    state: present
     name: "{{ item.svm_name }}"
     root_volume: "{{ item.root_vol }}"
     root_volume_aggregate: "{{item.rootvol_aggregate }}" 
@@ -15,7 +15,7 @@
 
 - name: Create file data LIF
   na_ontap_interface:
-    state: "{{ item.LIF_State }}" 
+    state: present
     interface_name: "{{ item.LIF_Name }}" 
     home_port: "{{ LIF_home_port }}" 
     home_node: "{{ item.LIF_home_node }}" 

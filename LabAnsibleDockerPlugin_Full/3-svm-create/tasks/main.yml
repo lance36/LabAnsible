@@ -1,42 +1,11 @@
-- name: Create Aggregates
-  na_ontap_aggregate:
-    state: present
-    service_state: online
-    name: "{{ item.aggregate_name }}" 
-    disk_count: "{{ disk_count }}"
-    nodes: "{{ item.nodes }}"
-    disk_type: VMDISK
-    hostname: "{{ netapp_hostname }}"
-    username: "{{ netapp_username }}"
-    password: "{{ netapp_password }}"
-    https: true
-    validate_certs: false
-  with_items: "{{ aggregates }}"
-
 - name: Create SVM
   na_ontap_svm:
     state: present
     name: "{{ item.svm_name }}"
     root_volume: "{{ item.root_vol }}"
     root_volume_aggregate: "{{item.rootvol_aggregate }}" 
+    root_volume_security_style: "{{ item.root_vol_sec_style }}"
     allowed_protocols: "{{ item.protocols }}" 
-    hostname: "{{ netapp_hostname }}"
-    username: "{{ netapp_username }}"
-    password: "{{ netapp_password }}"
-    https: true
-    validate_certs: false
-  with_items: "{{ SVMs }}"
-
-- name: change nfs status
-  na_ontap_nfs:
-    state: present
-    service_state: started
-    vserver: "{{ item.svm_name }}" 
-    nfsv3: enabled
-    nfsv4: disabled
-    nfsv41: disabled
-    vstorage_state: enabled
-    # nfsv4_id_domain: example.com #
     hostname: "{{ netapp_hostname }}"
     username: "{{ netapp_username }}"
     password: "{{ netapp_password }}"
@@ -62,12 +31,26 @@
     validate_certs: false
   with_items: "{{ Create_LIFS }}" 
 
+- name: Create Route
+  na_ontap_net_routes:
+    state: present
+    destination: "{{ item.Destination }}"
+    gateway: "{{ item.Gateway }}"
+    metric: "{{ item.Metric }}"
+    vserver: "{{ item.Which_SVM }}"
+    hostname: "{{ netapp_hostname }}"
+    username: "{{ netapp_username }}"
+    password: "{{ netapp_password }}"
+    https: true
+    validate_certs: false
+  with_items: "{{ Create_Routes }}"
+
 - name: Create ExportPolicyRule
   na_ontap_export_policy_rule:
     state: present
-    policy_name: All
+    policy_name: default
     vserver: "{{ item.svm_name }}" 
-    client_match: 0.0.0.0/0
+    client_match: 192.168.0.0/16
     ro_rule: any
     rw_rule: any
     protocol: any
@@ -79,6 +62,21 @@
     https: true
     validate_certs: false
   with_items: "{{ SVMs }}"  
+
+- name: enable NFS
+  na_ontap_nfs:
+    state: present
+    service_state: started
+    vserver: "{{ item.svm_name }}" 
+    nfsv3: enabled
+    nfsv4: disabled
+    nfsv41: disabled
+    hostname: "{{ netapp_hostname }}"
+    username: "{{ netapp_username }}"
+    password: "{{ netapp_password }}"
+    https: true
+    validate_certs: false
+  with_items: "{{ SVMs }}"
 
 - name: Create FlexVols 
   na_ontap_volume:
@@ -95,3 +93,13 @@
     https: true
     validate_certs: false
   with_items: "{{ Volumes }}"
+ 
+- name: Mount volumes to Junction Path
+  na_ontap_command:
+    command: volume mount -vserver "{{ item.SVM }}" -volume "{{ item.volume }}" -junction-path "{{ item.junction }}"
+    hostname: "{{ netapp_hostname }}"
+    username: "{{ netapp_username }}"
+    password: "{{ netapp_password }}"
+    https: true
+    validate_certs: false
+  with_items: "{{ Junction_Mount }}"

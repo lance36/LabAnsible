@@ -1,0 +1,15 @@
+---
+- name: Mount NFS to some Directorys
+  mount:
+    path: "/home/{{ item.local_volume }}"
+    src:  "{{ item.get ('nfs_lif') }}:/{{ item.get ('volume') }}"
+    fstype: nfs
+    state: mounted
+  with_items: "{{ Mount_NFS }}"
+
+- shell: df -H /home/*
+  register: result
+
+- name: Display DF
+  debug:
+    var: result

@@ -1,0 +1,23 @@
+---
+- name: Delete FlexVol
+  na_ontap_volume:
+    state: absent
+    name: "{{ item.Name }}"
+    vserver: "{{ item.Which_SVM }}"
+    hostname: "{{ netapp_hostname }}"
+    username: "{{ netapp_username }}"
+    password: "{{ netapp_password }}"
+    https: true
+    validate_certs: false
+  with_items: "{{ Volumes }}"
+
+- name: Delete SVM
+  na_ontap_svm:
+    state: absent
+    name: "{{ item.svm_name }}"
+    hostname: "{{ netapp_hostname }}"
+    username: "{{ netapp_username }}"
+    password: "{{ netapp_password }}"
+    https: true
+    validate_certs: false
+  with_items: "{{ SVMs }}"
