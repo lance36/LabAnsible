@@ -17,7 +17,7 @@
   na_ontap_interface:
     state: present
     interface_name: "{{ item.LIF_Name }}" 
-    home_port: "{{ LIF_home_port }}" 
+    home_port: "{{ item.LIF_home_port }}" 
     home_node: "{{ item.LIF_home_node }}" 
     role: "{{ item.LIF_Role }}"
     protocols: "{{ item.LIF_Protocol }}"

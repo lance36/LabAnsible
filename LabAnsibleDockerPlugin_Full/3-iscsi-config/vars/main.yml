@@ -4,8 +4,8 @@ SVMs:
 
 #-----> Create Logical Interfaces (LIFs) 
 Create_LIFS:
-    - { LIF_Name: ANSIBLE_iSCSI, LIF_IP: 192.168.0.150, LIF_Protocol: iscsi, 
-        svm_lif: DEMO_ANSIBLE, LIF_home_node: cluster1-01, LIF_Role: data, firewall_policy: mgmt, LIF_netmask: 255.255.255.0, LIF_home_port: e0c }
+    - { LIF_Name: ANSIBLE_iSCSI, LIF_IP: 192.168.0.150, svm_lif: DEMO_ANSIBLE, LIF_home_node: cluster1-01, 
+        LIF_Role: data, LIF_netmask: 255.255.255.0, LIF_home_port: e0c }
 
 #-----> Create iGroup
 igroups: 

@@ -4,8 +4,8 @@ SVMs:
     
 #-----> Create Logical Interfaces (LIFs) 
 Create_LIFS:
-    - { LIF_Name: ANSIBLE_NFS, LIF_IP: 192.168.0.120, LIF_Protocol: nfs, 
-        svm_lif: DEMO_ANSIBLE, LIF_home_node: cluster1-01, LIF_Role: data, firewall_policy: mgmt-nfs, LIF_netmask: 255.255.255.0, LIF_home_port: e0c }
+    - { LIF_Name: ANSIBLE_NFS, LIF_IP: 192.168.0.120, svm_lif: DEMO_ANSIBLE, LIF_home_node: cluster1-01, 
+        LIF_Role: data, firewall_policy: mgmt-nfs, LIF_netmask: 255.255.255.0, LIF_home_port: e0c }
 
 #-----> Create Routes
 Create_Routes:
