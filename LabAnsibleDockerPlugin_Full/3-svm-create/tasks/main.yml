@@ -4,7 +4,7 @@
     name: "{{ item.svm_name }}"
     root_volume: "{{ item.root_vol }}"
     root_volume_aggregate: "{{item.rootvol_aggregate }}" 
-    root_volume_security_style: "{{ item.root_vol_sec_style }}"
+    root_volume_security_style: "{{ root_volume_security_style }}"
     allowed_protocols: nfs,iscsi 
     hostname: "{{ netapp_hostname }}"
     username: "{{ netapp_username }}"

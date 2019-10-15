@@ -4,7 +4,7 @@ disk_count: 1
 
 #-----> LIF Setup: File
 LIF_netmask: 255.255.255.0
-LIF_home_port: e0b
+LIF_home_port: e0c
 
 # failover_policy: local-only
 # is_auto_revert: true

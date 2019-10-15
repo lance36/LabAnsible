@@ -3,13 +3,19 @@
   mount:
     path: "/home/{{ item.local_volume }}"
     state: absent
-  with_items: "{{ Mount_NFS }}"
+  with_items: "{{ Mount }}"
 
 - name: Delete the directories
   file:
     path: "/home/{{ item.local_volume }}"
     state: absent
-  with_items: "{{ Mount_NFS }}"
+  with_items: "{{ Mount }}"
+
+- name: Disconnect from the iSCSI target portal
+  open_iscsi:
+    login: no
+    portal: "{{ item.iscsi_portal }}"
+  with_items: "{{ iSCSI_Storage }}"
 
 - shell: df -H 
   register: result

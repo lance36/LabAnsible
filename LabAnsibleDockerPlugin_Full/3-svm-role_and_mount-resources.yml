@@ -7,9 +7,14 @@
 - name:  Configure iSCSI in the SVM
   hosts: localhost
   roles:
-    - role: /etc/ansible/LabAnsible/LabAnsibleDockerPlugin_Full/3-iscsi-config
+    - role: /etc/ansible/LabAnsible/LabAnsibleDockerPlugin_Full/3-svm-iscsi-config
 
 - name: Mount export to rhel
   hosts: rhel
   roles:  
-    - role: /etc/ansible/LabAnsible/LabAnsibleDockerPlugin_Full/3-mount-nfs
+    - role: /etc/ansible/LabAnsible/LabAnsibleDockerPlugin_Full/3-rhel-mount-nfs
+
+- name: Connect LUN to rhel
+  hosts: rhel
+  roles:  
+    - role: /etc/ansible/LabAnsible/LabAnsibleDockerPlugin_Full/3-rhel-connect-lun

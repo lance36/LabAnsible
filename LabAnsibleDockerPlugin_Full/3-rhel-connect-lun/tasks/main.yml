@@ -1,0 +1,33 @@
+---
+- name: Perform a discovery and show available target nodes
+  open_iscsi:
+    show_nodes: yes
+    login: yes
+    discover: yes
+    portal: "{{ item.iscsi_portal }}"
+  with_items: "{{ iSCSI_Storage }}"
+
+- name: Create a filesystem on /dev/sdb
+  filesystem:
+    fstype: "{{ item.filesystem }}"
+    dev: "{{ item.volume }}"
+  with_items: "{{ iSCSI_Storage }}"
+
+- name: Mount LUN to some Directorys
+  mount:
+    state: mounted
+    path: "/home/{{ item.local_volume }}"
+    src:  "{{ item.volume }}"
+    fstype: "{{ item.filesystem }}"
+  with_items: "{{ iSCSI_Storage }}"
+
+- shell: df /home/*
+  register: result
+
+- name: Display DF
+  debug:
+    var: result
+  
+  
+  
+  
