@@ -85,7 +85,8 @@
     is_infinite: False
     aggregate_name: "{{ item.aggregate_for_vol }}"
     size: "{{ item.Size }}"
-    size_unit: gb         
+    size_unit: gb
+    volume_security_style: unix
     vserver: "{{ item.Which_SVM }}" 
     hostname: "{{ netapp_hostname }}"
     username: "{{ netapp_username }}"

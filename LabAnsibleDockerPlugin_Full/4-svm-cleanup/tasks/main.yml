@@ -1,4 +1,16 @@
 ---
+- name: Delete iGroups
+  na_ontap_igroup:
+    state: absent
+    name: "{{ item.igroup_name }}"
+    vserver: "{{ item.svm_name }}"
+    hostname: "{{ netapp_hostname }}"
+    username: "{{ netapp_username }}"
+    password: "{{ netapp_password }}"
+    https: true
+    validate_certs: false
+  with_items: "{{ igroups }}"
+
 - name: Delete FlexVol
   na_ontap_volume:
     state: absent

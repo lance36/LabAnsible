@@ -1,8 +1,13 @@
 ---
-- name: Deploy ONTAP Cluster config
+- name: Create SVM & Configure NFS
   hosts: localhost
   roles:
     - role: /etc/ansible/LabAnsible/LabAnsibleDockerPlugin_Full/3-svm-create
+
+- name:  Configure iSCSI in the SVM
+  hosts: localhost
+  roles:
+    - role: /etc/ansible/LabAnsible/LabAnsibleDockerPlugin_Full/3-iscsi-config
 
 - name: Mount export to rhel
   hosts: rhel
