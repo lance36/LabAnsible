@@ -1,4 +1,19 @@
 ---
+- name: Unmap LUNs
+  na_ontap_lun_map:
+    state: absent
+    initiator_group_name: "{{ item.igroup }}"
+    path: "/vol/{{ item.vol_name }}/{{ item.name }}"
+    vserver: "{{ item.svm_name }}"
+    hostname: "{{ netapp_hostname }}"
+    username: "{{ netapp_username }}"
+    password: "{{ netapp_password }}"
+    https: true
+    validate_certs: false
+  with_items:
+    "{{ luns }}"
+  when: luns != None
+
 - name: Delete iGroups
   na_ontap_igroup:
     state: absent
@@ -10,6 +25,7 @@
     https: true
     validate_certs: false
   with_items: "{{ igroups }}"
+  when: igroups != None
 
 - name: Delete FlexVol
   na_ontap_volume:
