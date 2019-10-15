@@ -5,7 +5,7 @@
     root_volume: "{{ item.root_vol }}"
     root_volume_aggregate: "{{item.rootvol_aggregate }}" 
     root_volume_security_style: "{{ item.root_vol_sec_style }}"
-    allowed_protocols: "{{ item.protocols }}" 
+    allowed_protocols: nfs,iscsi 
     hostname: "{{ netapp_hostname }}"
     username: "{{ netapp_username }}"
     password: "{{ netapp_password }}"
