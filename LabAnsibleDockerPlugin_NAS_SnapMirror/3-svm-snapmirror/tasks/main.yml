@@ -11,6 +11,7 @@
     https: true
     validate_certs: false
   with_items: "{{ SnapMirror_Global_Config }}"
+  when: item.local_cluster == false
 
 - name: Source vserver peer create
   na_ontap_vserver_peer:
@@ -30,7 +31,7 @@
 - name: Validate destination FlexVol
   na_ontap_volume:
     state: present
-    name: "{{ dst_volume }}"
+    name: "{{ item.dst_volume }}"
     is_infinite: False
     aggregate_name: "{{ item.dst_aggr }}"
     size: 20
@@ -49,7 +50,7 @@
   na_ontap_snapmirror:
     state: present
     source_volume: "{{ item.src_volume }}"
-    destination_volume: "{{ dst_volume }}"
+    destination_volume: "{{ item.dst_volume }}"
     source_vserver: "{{ item.src_vserver }}"
     destination_vserver: "{{ item.dst_vserver }}"
     hostname: "{{ netapp_hostname }}"

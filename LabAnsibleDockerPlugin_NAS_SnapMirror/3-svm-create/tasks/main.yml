@@ -23,7 +23,7 @@
     protocols: nfs
     address: "{{ item.LIF_IP }}"
     netmask: "{{ LIF_netmask }}"
-    vserver: "{{ item.svm_lif }}" 
+    vserver: "{{ item.svm }}" 
     hostname: "{{ netapp_hostname }}"
     username: "{{ netapp_username }}"
     password: "{{ netapp_password }}"
@@ -40,7 +40,7 @@
     role: intercluster
     address: "{{ item.LIF_IP }}"
     netmask: "{{ LIF_netmask }}"
-    vserver: "{{ item.svm_lif }}" 
+    vserver: "{{ item.svm }}" 
     hostname: "{{ netapp_hostname }}"
     username: "{{ netapp_username }}"
     password: "{{ netapp_password }}"
