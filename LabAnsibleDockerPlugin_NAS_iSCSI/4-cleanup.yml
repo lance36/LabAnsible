@@ -1,0 +1,10 @@
+---
+- name: Unmount resources
+  hosts: rhel
+  roles:  
+    - role: /etc/ansible/LabAnsible/LabAnsibleDockerPlugin_NAS_iSCSI/4-rhel-cleanup
+
+- name: Delete the SVM
+  hosts: localhost
+  roles:
+    - role: /etc/ansible/LabAnsible/LabAnsibleDockerPlugin_NAS_iSCSI/4-svm-cleanup

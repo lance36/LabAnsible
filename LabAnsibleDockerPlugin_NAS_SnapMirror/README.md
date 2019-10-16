@@ -6,7 +6,7 @@
 (in new terminal)  
     cd Documents
     git clone https://github.com/YvosOnTheHub/LabAnsible.git 
-    cd LabAnsible/LabAnsibleDockerPlugin
+    cd LabAnsible/LabAnsibleDockerPlugin_NAS_SnapMirror
 
 # SSH into host5
     ssh root@192.168.0.66
@@ -16,7 +16,7 @@
     git clone https://github.com/YvosOnTheHub/LabAnsible.git
 
 # Copy the Trident backend file in /etc/netappdvp
-    cp ~/LabAnsible/LabAnsibleDockerPlugin/0-Trident-config/config-ontap-nas.json /etc/netappdvp/
+    cp ~/LabAnsible/LabAnsibleDockerPlugin_NAS_SnapMirror/0-Trident-config/config-ontap-nas.json /etc/netappdvp/
 
 # Install Trident as a Docker plugin & check it is active
     docker plugin install netapp/trident-plugin:18.07 --alias ontap-nas --grant-all-permissions config=config-ontap-nas.json 
@@ -35,7 +35,7 @@
 # Clone github repo
     cd /etc/ansible/ 
     git clone https://github.com/YvosOnTheHub/LabAnsible.git 
-    cd LabAnsible/LabAnsibleDockerPlugin 
+    cd LabAnsible/LabAnsibleDockerPlugin_NAS_SnapMirror
 
 # Create and share ssh-keys with remote RHEL host (for instance "Rhel4", "Rhel5", "Rhel6")
     ssh-keygen (keep the default values for all inputs, ie press 'enter' a few times)

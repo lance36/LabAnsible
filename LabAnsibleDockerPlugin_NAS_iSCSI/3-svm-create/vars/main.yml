@@ -1,11 +1,11 @@
 #-----> Create Storage Servers 
 SVMs: 
-    - { svm_name: DEMO_ANSIBLE, rootvol_aggregate: aggr1, protocols: nfs, root_vol: ansible_root, root_vol_sec_style: unix }
+    - { svm_name: DEMO_ANSIBLE, rootvol_aggregate: aggr1, root_vol: ansible_root, root_vol_sec_style: unix }
     
 #-----> Create Logical Interfaces (LIFs) 
 Create_LIFS:
-    - { LIF_Name: ANSIBLE_NFS, LIF_IP: 192.168.0.120, LIF_Protocol: nfs, svm_lif: DEMO_ANSIBLE, LIF_home_node: cluster1-01, 
-             LIF_Role: data, firewall_policy: mgmt-nfs, LIF_netmask: 255.255.255.0, LIF_home_port: e0c }
+    - { LIF_Name: ANSIBLE_NFS, LIF_IP: 192.168.0.120, svm_lif: DEMO_ANSIBLE, LIF_home_node: cluster1-01, 
+        LIF_Role: data, firewall_policy: mgmt-nfs, LIF_netmask: 255.255.255.0, LIF_home_port: e0c }
 
 #-----> Create Routes
 Create_Routes:
@@ -20,11 +20,6 @@ Volumes:
 Junction_Mount:
     - { volume: vol1, SVM: DEMO_ANSIBLE, junction: /vol1 }
     - { volume: vol2, SVM: DEMO_ANSIBLE, junction: /vol2 }
-
-#-----> Mount NFS to host
-Mount_NFS:
-    - { local_volume: DEMO_ANSIBLE_vol1, volume: vol1, nfs_lif: 192.168.0.120 }
-    - { local_volume: DEMO_ANSIBLE_vol2, volume: vol2, nfs_lif: 192.168.0.120 }
 
 
 ##----> Vaulted Credentials 

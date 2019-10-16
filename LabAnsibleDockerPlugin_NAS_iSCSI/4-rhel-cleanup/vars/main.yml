@@ -1,0 +1,9 @@
+#-----> Unmount directories
+Mount:
+    - { local_volume: DEMO_ANSIBLE_vol1 }
+    - { local_volume: DEMO_ANSIBLE_vol2 }
+    - { local_volume: DEMO_ANSIBLE_iSCSI }
+
+#-----> Unmount iSCSI LUN
+iSCSI_Storage:
+    - { iscsi_portal: 192.168.0.150 }

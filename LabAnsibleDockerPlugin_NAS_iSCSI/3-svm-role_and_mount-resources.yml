@@ -1,0 +1,20 @@
+---
+- name: Create SVM & Configure NFS
+  hosts: localhost
+  roles:
+    - role: /etc/ansible/LabAnsible/LabAnsibleDockerPlugin_NAS_iSCSI/3-svm-create
+
+- name:  Configure iSCSI in the SVM
+  hosts: localhost
+  roles:
+    - role: /etc/ansible/LabAnsible/LabAnsibleDockerPlugin_NAS_iSCSI/3-svm-iscsi-config
+
+- name: Mount export to rhel
+  hosts: rhel
+  roles:  
+    - role: /etc/ansible/LabAnsible/LabAnsibleDockerPlugin_NAS_iSCSI/3-rhel-mount-nfs
+
+- name: Connect LUN to rhel
+  hosts: rhel
+  roles:  
+    - role: /etc/ansible/LabAnsible/LabAnsibleDockerPlugin_NAS_iSCSI/3-rhel-connect-lun

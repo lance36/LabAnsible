@@ -1,0 +1,13 @@
+#-----> SnapMirror Cluster Configuration 
+SnapMirror_Global_Config: 
+    - { src_vserver: DEMO_ANSIBLE_SRC, dst_vserver: DEMO_ANSIBLE_DST, src_lif: 192.168.0.200, dst_lif:  192.168.0.210 }
+
+#-----> SnapMirror Volumes Configuration
+SnapMirror_Volumes_Config:
+    - { src_vserver: DEMO_ANSIBLE_SRC, dst_vserver: DEMO_ANSIBLE_DST, src_volume: vol1, dst_aggr: aggr1 }
+    - { src_vserver: DEMO_ANSIBLE_SRC, dst_vserver: DEMO_ANSIBLE_DST, src_volume: vol2, dst_aggr: aggr1 }
+
+##----> Vaulted Credentials 
+netapp_hostname: 192.168.0.101
+netapp_username: admin
+netapp_password: Netapp1!

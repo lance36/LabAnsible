@@ -1,0 +1,3 @@
+---
+passphrase: AlwayslookatthebrightsideofL1ght
+dst_volume: "{{ src_volume }}_dst"
