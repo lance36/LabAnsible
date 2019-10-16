@@ -3,17 +3,19 @@ SVMs:
     - { svm_name: DEMO_ANSIBLE_SRC, rootvol_aggregate: aggr1, root_vol: ansible_src_root, root_vol_sec_style: unix }
     - { svm_name: DEMO_ANSIBLE_DST, rootvol_aggregate: aggr1, root_vol: ansible_dst_root, root_vol_sec_style: unix }
     
-#-----> Create Logical Interfaces (LIFs) 
-Create_LIFS:
+#-----> Create DATA Logical Interfaces (LIFs) 
+Create_DATA_LIFS:
     - { LIF_Name: DEMO_ANSIBLE_SRC, LIF_IP: 192.168.0.120, svm_lif: DEMO_ANSIBLE_SRC, LIF_home_node: cluster1-01, 
-        LIF_Role: data, firewall_policy: mgmt-nfs, LIF_netmask: 255.255.255.0, LIF_home_port: e0c }
-    - { LIF_Name: intercluster_SRC, LIF_IP: 192.168.0.200, svm_lif: DEMO_ANSIBLE_SRC, LIF_home_node: cluster1-01, 
-        LIF_Role: intercluster, firewall_policy: mgmt-nfs, LIF_netmask: 255.255.255.0, LIF_home_port: e0c }
+        firewall_policy: mgmt-nfs, LIF_netmask: 255.255.255.0, LIF_home_port: e0c }
     - { LIF_Name: DEMO_ANSIBLE_DST, LIF_IP: 192.168.0.150, svm_lif: DEMO_ANSIBLE_DST, LIF_home_node: cluster1-01, 
-        LIF_Role: data, firewall_policy: mgmt-nfs, LIF_netmask: 255.255.255.0, LIF_home_port: e0d }
-    - { LIF_Name: intercluster_DST, LIF_IP: 192.168.0.210, svm_lif: DEMO_ANSIBLE_DST, LIF_home_node: cluster1-01, 
-        LIF_Role: intercluster, firewall_policy: mgmt-nfs, LIF_netmask: 255.255.255.0, LIF_home_port: e0d }
+        firewall_policy: mgmt-nfs, LIF_netmask: 255.255.255.0, LIF_home_port: e0d }
 
+#-----> Create INTERCLUSTER Logical Interfaces (LIFs) 
+Create_INTERCLUSTER_LIFS:
+    - { LIF_Name: intercluster_SRC, LIF_IP: 192.168.0.200, svm_lif: DEMO_ANSIBLE_SRC, LIF_home_node: cluster1-01, 
+        firewall_policy: mgmt-nfs, LIF_netmask: 255.255.255.0, LIF_home_port: e0c }
+    - { LIF_Name: intercluster_DST, LIF_IP: 192.168.0.210, svm_lif: DEMO_ANSIBLE_DST, LIF_home_node: cluster1-01, 
+        firewall_policy: mgmt-nfs, LIF_netmask: 255.255.255.0, LIF_home_port: e0d }
 
 #-----> Create Routes
 Create_Routes:

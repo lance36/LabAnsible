@@ -19,7 +19,7 @@
     interface_name: "{{ item.LIF_Name }}" 
     home_port: "{{ item.LIF_home_port }}" 
     home_node: "{{ item.LIF_home_node }}" 
-    role: "{{ item.LIF_Role }}"
+    role: data
     protocols: nfs
     address: "{{ item.LIF_IP }}"
     netmask: "{{ LIF_netmask }}"
@@ -29,7 +29,24 @@
     password: "{{ netapp_password }}"
     https: true
     validate_certs: false
-  with_items: "{{ Create_LIFS }}" 
+  with_items: "{{ Create_DATA_LIFS }}" 
+
+- name: Create INTERCLUSTER LIF
+  na_ontap_interface:
+    state: present 
+    interface_name: "{{ item.LIF_Name }}" 
+    home_port: "{{ item.LIF_home_port }}" 
+    home_node: "{{ item.LIF_home_node }}" 
+    role: intercluster
+    address: "{{ item.LIF_IP }}"
+    netmask: "{{ LIF_netmask }}"
+    vserver: "{{ item.svm_lif }}" 
+    hostname: "{{ netapp_hostname }}"
+    username: "{{ netapp_username }}"
+    password: "{{ netapp_password }}"
+    https: true
+    validate_certs: false
+  with_items: "{{ Create_INTERCLUSTER_LIFS }}" 
 
 - name: Create Route
   na_ontap_net_routes:

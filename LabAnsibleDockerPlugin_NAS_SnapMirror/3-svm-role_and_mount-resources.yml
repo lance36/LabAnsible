@@ -7,7 +7,7 @@
 - name: Configure SnapMirror between both SVM
   hosts: localhost
   roles:  
-    - role: /etc/ansible/LabAnsible/LabAnsibleDockerPlugin_NAS_SnapMirror/3-snapmirror
+    - role: /etc/ansible/LabAnsible/LabAnsibleDockerPlugin_NAS_SnapMirror/3-svm-snapmirror
 
 - name: Mount export to rhel
   hosts: rhel
