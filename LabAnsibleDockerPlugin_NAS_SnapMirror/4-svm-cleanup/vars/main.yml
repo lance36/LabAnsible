@@ -1,7 +1,12 @@
+#-----> SnapMirror Peering Configuration
+SnapMirror_Global_Config: 
+    - { src_vserver: DEMO_ANSIBLE_SRC, dst_vserver: DEMO_ANSIBLE_DST, 
+        src_lif: 192.168.0.200, dst_lif: 192.168.0.210 }
+
 #-----> SnapMirror Volumes Configuration
 SnapMirror_Volumes_Config:
-    - { src_vserver: DEMO_ANSIBLE_SRC, dst_vserver: DEMO_ANSIBLE_DST, src_volume: vol1, dst_volume: vol1_dst }
-    - { src_vserver: DEMO_ANSIBLE_SRC, dst_vserver: DEMO_ANSIBLE_DST, src_volume: vol2, dst_volume: vol2_dst }
+    - { src_hostname: 192.168.0.101, src_vserver: DEMO_ANSIBLE_SRC, dst_vserver: DEMO_ANSIBLE_DST, src_volume: vol1, dst_volume: vol1_dst }
+    - { src_hostname: 192.168.0.101, src_vserver: DEMO_ANSIBLE_SRC, dst_vserver: DEMO_ANSIBLE_DST, src_volume: vol2, dst_volume: vol2_dst }
 
 #-----> FlexVols to delete
 Volumes:
