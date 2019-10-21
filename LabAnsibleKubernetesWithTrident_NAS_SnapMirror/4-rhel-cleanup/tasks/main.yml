@@ -1,0 +1,21 @@
+---
+- name: Unmount the directories
+  mount:
+    path: "/home/{{ item.local_volume }}"
+    state: absent
+  with_items: "{{ Mount }}"
+
+- name: Delete the directories
+  file:
+    path: "/home/{{ item.local_volume }}"
+    state: absent
+  with_items: "{{ Mount }}"
+
+- shell: df -H 
+  register: result
+
+- name: Display DF
+  debug:
+    var: result
+
+

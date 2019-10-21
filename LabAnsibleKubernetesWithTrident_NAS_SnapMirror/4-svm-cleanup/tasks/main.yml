@@ -1,0 +1,47 @@
+---
+- name: Delete SnapMirror Relationships
+  na_ontap_snapmirror:
+    state: absent
+    destination_path: "{{ item.dst_vserver }}:{{ item.dst_volume }}"
+    source_hostname: "{{ item.src_hostname }}"
+    hostname: "{{ netapp_hostname }}"
+    username: "{{ netapp_username }}"
+    password: "{{ netapp_password }}"
+    https: true
+    validate_certs: false
+  with_items: "{{ SnapMirror_Volumes_Config }}"
+
+- name: Delete vserver peer
+  na_ontap_vserver_peer:
+    state: absent
+    peer_vserver: "{{ item.dst_vserver }}"
+    vserver: "{{ item.src_vserver }}"
+    hostname: "{{ netapp_hostname }}"
+    username: "{{ netapp_username }}"
+    password: "{{ netapp_password }}"
+    https: true
+    validate_certs: false
+  with_items: "{{ SnapMirror_Global_Config }}"
+
+- name: Delete FlexVol
+  na_ontap_volume:
+    state: absent
+    name: "{{ item.Name }}"
+    vserver: "{{ item.Which_SVM }}"
+    hostname: "{{ netapp_hostname }}"
+    username: "{{ netapp_username }}"
+    password: "{{ netapp_password }}"
+    https: true
+    validate_certs: false
+  with_items: "{{ Volumes }}"
+
+- name: Delete SVM
+  na_ontap_svm:
+    state: absent
+    name: "{{ item.svm_name }}"
+    hostname: "{{ netapp_hostname }}"
+    username: "{{ netapp_username }}"
+    password: "{{ netapp_password }}"
+    https: true
+    validate_certs: false
+  with_items: "{{ SVMs }}"

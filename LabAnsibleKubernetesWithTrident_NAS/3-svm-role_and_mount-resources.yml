@@ -1,0 +1,10 @@
+---
+- name: Deploy ONTAP Cluster config
+  hosts: localhost
+  roles:
+    - role: /etc/ansible/LabAnsible/LabAnsibleKubernetesWithTrident_NAS/3-svm-create
+
+- name: Mount export to rhel
+  hosts: rhel
+  roles:  
+    - role: /etc/ansible/LabAnsible/LabAnsibleKubernetesWithTrident_NAS/3-mount-nfs

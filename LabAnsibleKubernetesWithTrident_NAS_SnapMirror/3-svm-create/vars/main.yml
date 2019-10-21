@@ -1,0 +1,39 @@
+#-----> Create Storage Servers 
+SVMs: 
+    - { svm_name: DEMO_ANSIBLE_SRC, rootvol_aggregate: aggr1, root_vol: ansible_src_root, root_vol_sec_style: unix }
+    - { svm_name: DEMO_ANSIBLE_DST, rootvol_aggregate: aggr1, root_vol: ansible_dst_root, root_vol_sec_style: unix }
+    
+#-----> Create DATA Logical Interfaces (LIFs) 
+Create_DATA_LIFS:
+    - { LIF_Name: DEMO_ANSIBLE_SRC, LIF_IP: 192.168.0.120, svm: DEMO_ANSIBLE_SRC, LIF_home_node: cluster1-01, 
+        LIF_netmask: 255.255.255.0, LIF_home_port: e0c }
+    - { LIF_Name: DEMO_ANSIBLE_DST, LIF_IP: 192.168.0.150, svm: DEMO_ANSIBLE_DST, LIF_home_node: cluster1-01, 
+        LIF_netmask: 255.255.255.0, LIF_home_port: e0d }
+
+#-----> Create INTERCLUSTER Logical Interfaces (LIFs) 
+Create_INTERCLUSTER_LIFS:
+    - { LIF_Name: INTERCLUSTER_SRC, LIF_IP: 192.168.0.200, svm: cluster1, LIF_home_node: cluster1-01, 
+        LIF_netmask: 255.255.255.0, LIF_home_port: e0c }
+    - { LIF_Name: INTERCLUSTER_DST, LIF_IP: 192.168.0.210, svm: cluster1, LIF_home_node: cluster1-01, 
+        LIF_netmask: 255.255.255.0, LIF_home_port: e0d }
+
+#-----> Create Routes
+Create_Routes:
+    - { Destination: 192.168.0.0/16, Gateway: 192.168.0.1, Metric: 30, Which_SVM: DEMO_ANSIBLE_SRC }
+    - { Destination: 192.168.0.0/16, Gateway: 192.168.0.1, Metric: 30, Which_SVM: DEMO_ANSIBLE_DST }
+
+#-----> Create Volumes
+Volumes:
+    - { Name: vol1, Size: 1, Which_SVM: DEMO_ANSIBLE_SRC, aggregate_for_vol: aggr1 }
+    - { Name: vol2, Size: 1, Which_SVM: DEMO_ANSIBLE_SRC, aggregate_for_vol: aggr1 }
+
+#-----> Mount Volumes to junction Path
+Junction_Mount:
+    - { volume: vol1, SVM: DEMO_ANSIBLE_SRC, junction: /vol1 }
+    - { volume: vol2, SVM: DEMO_ANSIBLE_SRC, junction: /vol2 }
+
+
+##----> Vaulted Credentials 
+netapp_hostname: 192.168.0.101
+netapp_username: admin
+netapp_password: Netapp1!

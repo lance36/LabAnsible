@@ -1,0 +1,31 @@
+#-----> Enable iSCSI 
+SVMs: 
+    - { svm_name: DEMO_ANSIBLE }
+
+#-----> Create Logical Interfaces (LIFs) 
+Create_LIFS:
+    - { LIF_Name: ANSIBLE_iSCSI, LIF_IP: 192.168.0.150, svm_lif: DEMO_ANSIBLE, LIF_home_node: cluster1-01, 
+        LIF_Role: data, LIF_netmask: 255.255.255.0, LIF_home_port: e0c }
+
+#-----> Create iGroup
+igroups: 
+    - { svm_name: DEMO_ANSIBLE, igroup_name: rhel4, ostype: linux }
+    - { svm_name: DEMO_ANSIBLE, igroup_name: rhel5, ostype: linux }
+    - { svm_name: DEMO_ANSIBLE, igroup_name: rhel6, ostype: linux }
+    
+#-----> Add IQNs to iGroup 
+iqns:
+    - { svm_name: DEMO_ANSIBLE, igroup_name: rhel4, iqn_name: iqn.1994-05.com.redhat:rhel4.demo.netapp.com }
+    - { svm_name: DEMO_ANSIBLE, igroup_name: rhel5, iqn_name: iqn.1994-05.com.redhat:rhel5.demo.netapp.com }
+    - { svm_name: DEMO_ANSIBLE, igroup_name: rhel6, iqn_name: iqn.1994-05.com.redhat:rhel6.demo.netapp.com }
+
+#-----> Create Volumes & LUNs
+luns:
+    - { name: lun1, vol_name: rhel4_lun, aggr: aggr1, svm_name: DEMO_ANSIBLE, lun_size: 1, ostype: linux, space_reserve: false, igroup: rhel4 }
+    - { name: lun1, vol_name: rhel5_lun, aggr: aggr1, svm_name: DEMO_ANSIBLE, lun_size: 1, ostype: linux, space_reserve: false, igroup: rhel5 }
+    - { name: lun1, vol_name: rhel6_lun, aggr: aggr1, svm_name: DEMO_ANSIBLE, lun_size: 1, ostype: linux, space_reserve: false, igroup: rhel6 }
+
+##----> Vaulted Credentials 
+netapp_hostname: 192.168.0.101
+netapp_username: admin
+netapp_password: Netapp1!

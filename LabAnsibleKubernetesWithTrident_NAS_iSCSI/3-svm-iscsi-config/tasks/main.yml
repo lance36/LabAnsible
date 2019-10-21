@@ -1,0 +1,109 @@
+- name: Enable iSCSI
+  na_ontap_iscsi:
+    state: present
+    service_state: started
+    vserver: "{{ item.svm_name }}" 
+    hostname: "{{ netapp_hostname }}"
+    username: "{{ netapp_username }}"
+    password: "{{ netapp_password }}"
+    https: true
+    validate_certs: false
+  with_items: "{{ SVMs }}"
+
+- name: Create iSCSI data LIF
+  na_ontap_interface:
+    state: present 
+    interface_name: "{{ item.LIF_Name }}" 
+    home_port: "{{ item.LIF_home_port }}" 
+    home_node: "{{ item.LIF_home_node }}" 
+    role: "{{ item.LIF_Role }}"
+    protocols: iscsi
+    address: "{{ item.LIF_IP }}"
+    netmask: "{{ LIF_netmask }}"
+    vserver: "{{ item.svm_lif }}" 
+    hostname: "{{ netapp_hostname }}"
+    username: "{{ netapp_username }}"
+    password: "{{ netapp_password }}"
+    https: true
+    validate_certs: false
+  with_items: "{{ Create_LIFS }}" 
+
+- name: Create iGroup
+  na_ontap_igroup:
+    state: present
+    name: "{{ item.igroup_name }}"
+    vserver: "{{ item.svm_name }}"
+    initiator_group_type: iscsi
+    ostype: "{{ item.ostype }}"
+    hostname: "{{ netapp_hostname }}"
+    username: "{{ netapp_username }}"
+    password: "{{ netapp_password }}"
+    https: true
+    validate_certs: false
+  with_items: "{{ igroups }}"
+  when: igroups != None
+
+- name: Add IQN to iGroup
+  na_ontap_igroup_initiator:
+    vserver: "{{ item.svm_name }}"
+    initiator_group: "{{ item.igroup_name }}"
+    names: "{{ item.iqn_name }}" 
+    hostname: "{{ netapp_hostname }}"
+    username: "{{ netapp_username }}"
+    password: "{{ netapp_password }}"
+    https: true
+    validate_certs: false
+  with_items: "{{ iqns }}"
+  when: iqns != None
+
+- name: Create FlexVols 
+  na_ontap_volume:
+    state: present
+    name: "{{ item.vol_name }}"    
+    is_infinite: False
+    aggregate_name: "{{ item.aggr }}"
+    size: "{{ (item.lun_size | int * 1.05) | round(0, 'ceil') | int }}"
+    size_unit: gb
+    space_guarantee: none      
+    vserver: "{{ item.svm_name }}" 
+    hostname: "{{ netapp_hostname }}"
+    username: "{{ netapp_username }}"
+    password: "{{ netapp_password }}"
+    https: true
+    validate_certs: false
+  with_items: "{{ luns }}"
+  when: luns != None
+ 
+- name: Lun Create
+  na_ontap_lun:
+    state: present
+    name: "{{ item.name }}"
+    flexvol_name: "{{ item.vol_name }}"
+    vserver: "{{ item.svm_name }}"
+    size: "{{ item.lun_size }}"
+    size_unit: gb
+    ostype: "{{ item.ostype }}"
+    space_reserve: "{{ item.space_reserve }}"
+    hostname: "{{ netapp_hostname }}"
+    username: "{{ netapp_username }}"
+    password: "{{ netapp_password }}"
+    https: true
+    validate_certs: false
+  with_items:
+    "{{ luns }}"
+  when: luns != None
+
+- name: Create LUN mapping
+  na_ontap_lun_map:
+    state: present
+    initiator_group_name: "{{ item.igroup }}"
+    path: "/vol/{{ item.vol_name }}/{{ item.name }}"
+    vserver: "{{ item.svm_name }}"
+    hostname: "{{ netapp_hostname }}"
+    username: "{{ netapp_username }}"
+    password: "{{ netapp_password }}"
+    https: true
+    validate_certs: false
+  with_items:
+    "{{ luns }}"
+  when: luns != None

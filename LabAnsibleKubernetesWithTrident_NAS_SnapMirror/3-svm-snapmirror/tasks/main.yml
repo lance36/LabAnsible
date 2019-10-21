@@ -1,0 +1,79 @@
+# creating a cluster peering is only required when using 2 separate clusters
+- name: Create cluster peer
+  na_ontap_cluster_peer:
+    state: present
+    source_intercluster_lifs: "{{ item.src_lif }}"
+    dest_intercluster_lifs: "{{ item.dst_lif }}"
+    passphrase: "{{ passphrase }}"
+    hostname: "{{ netapp_hostname }}"
+    username: "{{ netapp_username }}"
+    password: "{{ netapp_password }}"
+    dest_hostname: "{{ netapp_hostname }}"
+    https: true
+    validate_certs: false
+  with_items: "{{ SnapMirror_Global_Config }}"
+  when: item.local_cluster == false
+
+# the peer_cluster parameter is only required when using 2 separate clusters
+- name: Create vserver peer (in 2 separate clusters)
+  na_ontap_vserver_peer:
+    state: present
+    peer_vserver: "{{ item.dst_vserver }}"
+    peer_cluster: "{{ netapp_hostname }}"
+    vserver: "{{ item.src_vserver }}"
+    applications: snapmirror
+    hostname: "{{ netapp_hostname }}"
+    username: "{{ netapp_username }}"
+    password: "{{ netapp_password }}"
+    dest_hostname: "{{ netapp_hostname }}"
+    https: true
+    validate_certs: false
+  with_items: "{{ SnapMirror_Global_Config }}"
+  when: item.local_cluster == false
+
+- name: Create vserver peer  (in a local cluster)
+  na_ontap_vserver_peer:
+    state: present
+    peer_vserver: "{{ item.dst_vserver }}"
+    vserver: "{{ item.src_vserver }}"
+    applications: snapmirror
+    hostname: "{{ netapp_hostname }}"
+    username: "{{ netapp_username }}"
+    password: "{{ netapp_password }}"
+    dest_hostname: "{{ netapp_hostname }}"
+    https: true
+    validate_certs: false
+  with_items: "{{ SnapMirror_Global_Config }}"
+  when: item.local_cluster == true
+
+- name: Validate destination FlexVol
+  na_ontap_volume:
+    state: present
+    name: "{{ item.dst_volume }}"
+    is_infinite: False
+    aggregate_name: "{{ item.dst_aggr }}"
+    size: 20
+    size_unit: mb
+    type: DP
+    #junction_path: "/{{ dst_volume }}"
+    vserver: "{{ item.dst_vserver }}"
+    hostname: "{{ netapp_hostname }}"
+    username: "{{ netapp_username }}"
+    password: "{{ netapp_password }}"
+    https: true
+    validate_certs: false
+  with_items: "{{ SnapMirror_Volumes_Config }}"
+
+- name: Create SnapMirror
+  na_ontap_snapmirror:
+    state: present
+    source_volume: "{{ item.src_volume }}"
+    destination_volume: "{{ item.dst_volume }}"
+    source_vserver: "{{ item.src_vserver }}"
+    destination_vserver: "{{ item.dst_vserver }}"
+    hostname: "{{ netapp_hostname }}"
+    username: "{{ netapp_username }}"
+    password: "{{ netapp_password }}"
+    https: true
+    validate_certs: false
+  with_items: "{{ SnapMirror_Volumes_Config }}"

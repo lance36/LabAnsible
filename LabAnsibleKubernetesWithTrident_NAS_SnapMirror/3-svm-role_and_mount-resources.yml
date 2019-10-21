@@ -1,0 +1,16 @@
+---
+- name: Create SVM & Configure NFS
+  hosts: localhost
+  roles:
+    - role: /etc/ansible/LabAnsible/LabAnsibleKubernetesWithTrident_NAS_SnapMirror/3-svm-create
+
+- name: Configure SnapMirror between both SVM
+  hosts: localhost
+  roles:  
+    - role: /etc/ansible/LabAnsible/LabAnsibleKubernetesWithTrident_NAS_SnapMirror/3-svm-snapmirror
+
+- name: Mount export to rhel
+  hosts: rhel
+  roles:  
+    - role: /etc/ansible/LabAnsible/LabAnsibleKubernetesWithTrident_NAS_SnapMirror/3-rhel-mount-nfs
+

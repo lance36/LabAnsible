@@ -1,0 +1,4 @@
+#-----> Unmount directories
+Mount:
+    - { local_volume: DEMO_ANSIBLE_vol1 }
+    - { local_volume: DEMO_ANSIBLE_vol2 }

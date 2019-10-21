@@ -6,7 +6,7 @@
 (in new terminal)  
     cd Documents
     git clone https://github.com/YvosOnTheHub/LabAnsible.git 
-    cd LabAnsible/LabAnsibleKubernetesWithTrident
+    cd LabAnsible/LabAnsibleKubernetesWithTrident_NAS
 
 # SSH into host3
     ssh root@192.168.0.63
@@ -32,7 +32,7 @@
 # Clone github repo
     cd /etc/ansible/ 
     git clone https://github.com/YvosOnTheHub/LabAnsible.git 
-    cd LabAnsible/LabAnsibleKubernetesWithTrident 
+    cd LabAnsible/LabAnsibleKubernetesWithTrident_NAS
 
 # Create and share ssh-keys with remote RHEL host (for instance "Rhel4", "Rhel5", "Rhel6")
     ssh-keygen (keep the default values for all inputs, ie press 'enter' a few times)
