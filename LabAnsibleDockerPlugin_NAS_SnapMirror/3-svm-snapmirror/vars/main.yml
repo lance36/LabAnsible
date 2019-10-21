@@ -1,4 +1,5 @@
-#-----> SnapMirror Peering Configuration 
+#-----> SnapMirror Peering Configuration
+# "local_cluster = true" means that both src & dst SVM are on the same cluster
 SnapMirror_Global_Config: 
     - { local_cluster: true, 
         src_vserver: DEMO_ANSIBLE_SRC, dst_vserver: DEMO_ANSIBLE_DST, 

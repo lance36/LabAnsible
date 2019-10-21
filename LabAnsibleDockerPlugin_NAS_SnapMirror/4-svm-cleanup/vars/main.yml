@@ -1,27 +1,21 @@
-#-----> iSCSI LUNs to unmap
-luns:
-    - { name: lun1, vol_name: rhel4_lun, svm_name: DEMO_ANSIBLE, igroup: rhel4 }
-    - { name: lun1, vol_name: rhel5_lun, svm_name: DEMO_ANSIBLE, igroup: rhel5 }
-    - { name: lun1, vol_name: rhel6_lun, svm_name: DEMO_ANSIBLE, igroup: rhel6 }
-
-#-----> iGroups to delete
-igroups: 
-    - { svm_name: DEMO_ANSIBLE, igroup_name: rhel4 }
-    - { svm_name: DEMO_ANSIBLE, igroup_name: rhel5 }
-    - { svm_name: DEMO_ANSIBLE, igroup_name: rhel6 }
+#-----> SnapMirror Volumes Configuration
+SnapMirror_Volumes_Config:
+    - { src_vserver: DEMO_ANSIBLE_SRC, dst_vserver: DEMO_ANSIBLE_DST, src_volume: vol1, dst_volume: vol1_dst }
+    - { src_vserver: DEMO_ANSIBLE_SRC, dst_vserver: DEMO_ANSIBLE_DST, src_volume: vol2, dst_volume: vol2_dst }
 
 #-----> FlexVols to delete
 Volumes:
-    - { Name: vol1, Which_SVM: DEMO_ANSIBLE }
-    - { Name: vol2, Which_SVM: DEMO_ANSIBLE }
-    - { Name: rhel4_lun, Which_SVM: DEMO_ANSIBLE }
-    - { Name: rhel5_lun, Which_SVM: DEMO_ANSIBLE }
-    - { Name: rhel6_lun, Which_SVM: DEMO_ANSIBLE }
-    - { Name: ansible_root, Which_SVM: DEMO_ANSIBLE }
+    - { Name: vol1_dst, Which_SVM: DEMO_ANSIBLE_DST }
+    - { Name: vol2_dst, Which_SVM: DEMO_ANSIBLE_DST }
+    - { Name: ansible_dst_root, Which_SVM: DEMO_ANSIBLE_DST }
+    - { Name: vol1, Which_SVM: DEMO_ANSIBLE_SRC }
+    - { Name: vol2, Which_SVM: DEMO_ANSIBLE_SRC }
+    - { Name: ansible_src_root, Which_SVM: DEMO_ANSIBLE_SRC }
 
 #-----> SVM to delete 
 SVMs: 
-    - { svm_name: DEMO_ANSIBLE }
+    - { svm_name: DEMO_ANSIBLE_SRC }
+    - { svm_name: DEMO_ANSIBLE_DST }
 
 ##----> Vaulted Credentials 
 netapp_hostname: 192.168.0.101

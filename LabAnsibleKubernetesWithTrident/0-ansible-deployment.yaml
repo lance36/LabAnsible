@@ -14,7 +14,8 @@ spec:
     spec:
       containers:
       - name: ansible
-        image: schmots1/netapp-ansible
+        image: schmots1/netapp-ansible:latest
+        imagePullPolicy: "Always"
         command: ["/bin/bash"]
         args: ["-c", "while true; do echo hello; sleep 10;done"]
         resources:
