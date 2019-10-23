@@ -35,6 +35,18 @@
     validate_certs: false
   with_items: "{{ Volumes }}"
 
+- name: Delete INTERCLUSTER LIF
+  na_ontap_interface:
+    state: absent 
+    interface_name: "{{ item.LIF_Name }}" 
+    vserver: "{{ item.svm }}" 
+    hostname: "{{ netapp_hostname }}"
+    username: "{{ netapp_username }}"
+    password: "{{ netapp_password }}"
+    https: true
+    validate_certs: false
+  with_items: "{{ Delete_INTERCLUSTER_LIFS }}" 
+
 - name: Delete SVM
   na_ontap_svm:
     state: absent

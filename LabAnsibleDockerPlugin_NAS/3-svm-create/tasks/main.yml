@@ -49,8 +49,8 @@
   na_ontap_export_policy_rule:
     state: present
     policy_name: default
-    vserver: "{{ item.svm_name }}" 
-    client_match: 192.168.0.0/16
+    vserver: "{{ item.Which_SVM }}" 
+    client_match: "{{ item.Destination }}" 
     ro_rule: any
     rw_rule: any
     protocol: any
@@ -61,7 +61,7 @@
     password: "{{ netapp_password }}"
     https: true
     validate_certs: false
-  with_items: "{{ SVMs }}"  
+  with_items: "{{ Create_Routes }}"  
 
 - name: enable NFS
   na_ontap_nfs:

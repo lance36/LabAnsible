@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ansible
+spec:
+  selector:
+    matchLabels:
+      app: ansible
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ansible
+    spec:
+      containers:
+      - name: ansible
+        image: schmots1/netapp-ansible:latest
+        imagePullPolicy: "Always"
+        command: ["/bin/bash"]
+        args: ["-c", "while true; do echo hello; sleep 10;done"]
+        resources:
+           limits:
+             memory: "256Mi"
+             cpu: "500m"
+        volumeMounts:
+        - mountPath: "/root/.ssh"
+          name: ssh-keys
+        - mountPath: "/etc/ansible"
+          name: ansible-content
+      volumes:
+      - name: ssh-keys
+        persistentVolumeClaim:
+          claimName: ansible-ssh
+      - name: ansible-content
+        persistentVolumeClaim:
+          claimName: ansible-content

@@ -8,6 +8,11 @@ SnapMirror_Volumes_Config:
     - { src_hostname: 192.168.0.101, src_vserver: DEMO_ANSIBLE_SRC, dst_vserver: DEMO_ANSIBLE_DST, src_volume: vol1, dst_volume: vol1_dst }
     - { src_hostname: 192.168.0.101, src_vserver: DEMO_ANSIBLE_SRC, dst_vserver: DEMO_ANSIBLE_DST, src_volume: vol2, dst_volume: vol2_dst }
 
+#-----> Delete INTERCLUSTER Logical Interfaces (LIFs) 
+Delete_INTERCLUSTER_LIFS:
+    - { LIF_Name: INTERCLUSTER_SRC, svm: cluster1 }
+    - { LIF_Name: INTERCLUSTER_DST, svm: cluster1 }
+
 #-----> FlexVols to delete
 Volumes:
     - { Name: vol1_dst, Which_SVM: DEMO_ANSIBLE_DST }

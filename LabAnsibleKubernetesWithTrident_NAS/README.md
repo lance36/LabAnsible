@@ -1,3 +1,6 @@
+####################################
+## ANSIBLE & ONTAP NAS INTEGRATION
+####################################
 
 # Open bash terminal in VSCODE + clone code repository locally
 (in vscode) 
@@ -25,7 +28,7 @@
     (write down the pod name)
 
 # Enter the Ansible pod
-    kubectl exec -it -n ansible *you_ansible_pod_name* -- /bin/bash
+    kubectl exec -it -n ansible $(kubectl get pod -n ansible --output=name) -- /bin/bash
 
 =>  you are now in the container
 
@@ -45,6 +48,9 @@
 
 # Ping host to check connectivity with RHEL host 
     ansible -m ping rhel
+
+# Make sure the ONTAP IP addresses to use are free. If the result of the following is 0, you are good to go
+    ansible -m ping ontap_lab_nas | grep SUCCESS | wc -l
 
 # Install NFS utils on RHEL Host with ansible playbook  (change into repository directory!)
     ansible-playbook 1-install-nfs-utils.yml

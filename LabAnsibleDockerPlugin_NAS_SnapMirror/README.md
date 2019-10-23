@@ -1,3 +1,6 @@
+####################################
+## ANSIBLE & SNAPMIRROR INTEGRATION
+####################################
 
 # Open bash terminal in VSCODE + clone code repository locally
 (in vscode) 
@@ -48,6 +51,9 @@
 
 # Ping host to check connectivity with RHEL host 
     ansible -m ping rhel
+
+# Make sure the ONTAP IP addresses to use are free. If the result of the following is 0, you are good to go
+    ansible -m ping ontap_lab_snapmirror | grep SUCCESS | wc -l
 
 # Install NFS utils on RHEL Host with ansible playbook  (change into repository directory!)
     ansible-playbook 1-install-nfs-utils.yml
