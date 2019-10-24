@@ -1,5 +1,5 @@
 ####################################
-## ANSIBLE & NFS+iSCSI INTEGRATION
+## ANSIBLE & SNAPMIRROR INTEGRATION
 ####################################
 
 # Open bash terminal in VSCODE + clone code repository locally
@@ -9,7 +9,7 @@
 (in new terminal)  
     cd Documents
     git clone https://github.com/YvosOnTheHub/LabAnsible.git 
-    cd LabAnsible/LabAnsibleKubernetesWithTrident_NAS_iSCSI
+    cd LabAnsible/LabAnsibleDockerPlugin/3_Lab_NAS_SnapMirror
 
 # SSH into host5
     ssh root@192.168.0.66
@@ -18,24 +18,27 @@
 # Clone the repository in the centos environment
     git clone https://github.com/YvosOnTheHub/LabAnsible.git
 
-# Create a specific kubernetes namespace for Ansible
-    kubectl create namespace ansible
+# Copy the Trident backend file in /etc/netappdvp
+    cp ~/LabAnsible/LabAnsibleDockerPlugin/0-Trident-config/config-ontap-nas.json /etc/netappdvp/
 
-# Create the PVC & Deployment for Ansible
-    kubectl create -n ansible -f 0-ansible-pvc.yaml
-    kubectl create -n ansible -f 0-ansible-deployment.yaml
-    kubectl get pod -n ansible
-    (write down the pod name)
+# Install Trident as a Docker plugin & check it is active
+    docker plugin install netapp/trident-plugin:18.07 --alias ontap-nas --grant-all-permissions config=config-ontap-nas.json 
+    docker plugin ls
 
-# Enter the Ansible pod
-    kubectl exec -it -n ansible $(kubectl get pod -n ansible --output=name) -- /bin/bash
+# Create persistent docker volumes (one local & one on NetApp backend)
+    docker volume create ssh-keys 
+    docker volume create -d ontap-nas --name ansible -o size=1g 
+    docker volume ls 
+
+# Run docker container with NetApp Ansible modules configured
+    docker run -it -v ansible:/etc/ansible -v ssh-keys:/root/.ssh schmots1/netapp-ansible /bin/bash
 
 =>  you are now in the container
 
 # Clone github repo
     cd /etc/ansible/ 
     git clone https://github.com/YvosOnTheHub/LabAnsible.git 
-    cd LabAnsible/LabAnsibleKubernetesWithTrident_NAS_iSCSI
+    cd LabAnsible/LabAnsibleDockerPlugin
 
 # Create and share ssh-keys with remote RHEL host (for instance "Rhel4", "Rhel5", "Rhel6")
     ssh-keygen (keep the default values for all inputs, ie press 'enter' a few times)
@@ -50,19 +53,19 @@
     ansible -m ping rhel
 
 # Make sure the ONTAP IP addresses to use are free. If the result of the following is 0, you are good to go
-    ansible -m ping ontap_lab_nas_iscsi | grep SUCCESS | wc -l
+    ansible -m ping ontap_lab_snapmirror | grep SUCCESS | wc -l
 
 # Install NFS utils on RHEL Host with ansible playbook  (change into repository directory!)
-    ansible-playbook 1-install-nfs-utils.yml
+    ansible-playbook 3_Lab_NAS_SnapMirror/1-install-nfs-utils.yml
 
 # Run "playbook" for single volume just to try it out
-    ansible-playbook 2-flexvol-create.yml
+    ansible-playbook 3_Lab_NAS_SnapMirror/2-flexvol-create.yml
 
 # Run "role" to configure a new SVM (inspect it in VSCODE to see what it does!)
-    ansible-playbook 3-svm-role_and_mount-resources.yml 
+    ansible-playbook 3_Lab_NAS_SnapMirror/3-svm-role_and_mount-resources.yml 
 
 # Run "role" to remove the mounted resources & delete the SVM
-    ansible-playbook 4-cleanup.yml 
+    ansible-playbook 3_Lab_NAS_SnapMirror/4-cleanup.yml 
 
 # Exit the container
     exit

@@ -9,7 +9,7 @@
 (in new terminal)  
     cd Documents
     git clone https://github.com/YvosOnTheHub/LabAnsible.git 
-    cd LabAnsible/LabAnsibleDockerPlugin_NAS
+    cd LabAnsible/LabAnsibleDockerPlugin/1_Lab_NAS
 
 # SSH into host5
     ssh root@192.168.0.66
@@ -19,7 +19,7 @@
     git clone https://github.com/YvosOnTheHub/LabAnsible.git
 
 # Copy the Trident backend file in /etc/netappdvp
-    cp ~/LabAnsible/LabAnsibleDockerPlugin_NAS/0-Trident-config/config-ontap-nas.json /etc/netappdvp/
+    cp ~/LabAnsible/LabAnsibleDockerPlugin/0-Trident-config/config-ontap-nas.json /etc/netappdvp/
 
 # Install Trident as a Docker plugin & check it is active
     docker plugin install netapp/trident-plugin:18.07 --alias ontap-nas --grant-all-permissions config=config-ontap-nas.json 
@@ -38,7 +38,7 @@
 # Clone github repo
     cd /etc/ansible/ 
     git clone https://github.com/YvosOnTheHub/LabAnsible.git 
-    cd LabAnsible/LabAnsibleDockerPlugin_NAS 
+    cd LabAnsible/LabAnsibleDockerPlugin 
 
 # Create and share ssh-keys with remote RHEL host (for instance "Rhel4", "Rhel5", "Rhel6")
     ssh-keygen (keep the default values for all inputs, ie press 'enter' a few times)
@@ -56,16 +56,16 @@
     ansible -m ping ontap_lab_nas | grep SUCCESS | wc -l
 
 # Install NFS utils on RHEL Host with ansible playbook  (change into repository directory!)
-    ansible-playbook 1-install-nfs-utils.yml
+    ansible-playbook 1_Lab_NAS/1-install-nfs-utils.yml
 
 # Run "playbook" for single volume just to try it out
-    ansible-playbook 2-flexvol-create.yml
+    ansible-playbook 1_Lab_NAS/2-flexvol-create.yml
 
 # Run "role" to configure a new SVM (inspect it in VSCODE to see what it does!)
-    ansible-playbook 3-svm-role_and_mount-resources.yml 
+    ansible-playbook 1_Lab_NAS/3-svm-role_and_mount-resources.yml 
 
 # Run "role" to remove the mounted resources & delete the SVM
-    ansible-playbook 4-cleanup.yml 
+    ansible-playbook 1_Lab_NAS/4-cleanup.yml 
 
 # Exit the container
     exit
