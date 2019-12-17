@@ -35,6 +35,9 @@
     git clone https://github.com/YvosOnTheHub/LabAnsible.git 
     cd LabAnsible/LabAnsibleKubernetesWithTrident
 
+# Check the version of the NetApp Collection installed (verified with 19.11.0)
+    mazer list
+
 # Create and share ssh-keys with remote RHEL host (for instance "Rhel4", "Rhel5", "Rhel6")
     ssh-keygen (keep the default values for all inputs, ie press 'enter' a few times)
     ssh-copy-id root@192.168.0.64

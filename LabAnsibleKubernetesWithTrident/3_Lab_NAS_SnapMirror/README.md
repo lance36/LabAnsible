@@ -25,6 +25,10 @@
     kubectl create -n ansible -f 0-Kubernetes-config/0-ansible-pvc.yaml
     kubectl create -n ansible -f 0-Kubernetes-config/0-ansible-deployment.yaml
 
+# The upgrade of this deployment can be achieved using the following command (if using K8S 1.15+)
+# It will automatically download the latest available image
+    kubectl -n ansible rollout restart deploy ansible
+
 # Enter the Ansible pod
     kubectl exec -it -n ansible $(kubectl get pod -n ansible --output=name) -- /bin/bash
 
@@ -34,6 +38,9 @@
     cd /etc/ansible/ 
     git clone https://github.com/YvosOnTheHub/LabAnsible.git 
     cd LabAnsible/LabAnsibleKubernetesWithTrident
+
+# Check the version of the NetApp Collection installed (verified with 19.11.0)
+    mazer list
 
 # Create and share ssh-keys with remote RHEL host (for instance "Rhel4", "Rhel5", "Rhel6")
     ssh-keygen (keep the default values for all inputs, ie press 'enter' a few times)

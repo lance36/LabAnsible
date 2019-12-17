@@ -5,7 +5,7 @@ metadata:
   name: ansible-content
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
       storage: 100Mi
@@ -17,7 +17,7 @@ metadata:
   name: ansible-ssh
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
       storage: 100Mi

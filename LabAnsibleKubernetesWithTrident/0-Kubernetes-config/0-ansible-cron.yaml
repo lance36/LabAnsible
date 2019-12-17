@@ -1,0 +1,33 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: ansible
+spec:
+  schedule: "0 0 * * 0"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: ansible
+            image: schmots1/netapp-ansible:latest
+            imagePullPolicy: "Always"
+            command: ["/bin/bash"]
+            args: ["-c", "echo hello; sleep 86300"]
+            resources:
+               limits:
+                 memory: "256Mi"
+                 cpu: "500m"
+            volumeMounts:
+            - mountPath: "/root/.ssh"
+              name: ssh-keys
+            - mountPath: "/etc/ansible"
+              name: ansible-content
+          volumes:
+          - name: ssh-keys
+            persistentVolumeClaim:
+              claimName: ansible-ssh
+          - name: ansible-content
+            persistentVolumeClaim:
+              claimName: ansible-content
+          restartPolicy: OnFailure

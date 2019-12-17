@@ -1,11 +1,15 @@
 ---
 - name: Create SVM & Configure NFS
   hosts: localhost
+  collections:
+    - netapp.ontap
   roles:
     - role: /etc/ansible/LabAnsible/LabAnsibleKubernetesWithTrident/2_Lab_NAS_iSCSI/3-svm-create
 
 - name:  Configure iSCSI in the SVM
   hosts: localhost
+  collections:
+    - netapp.ontap
   roles:
     - role: /etc/ansible/LabAnsible/LabAnsibleKubernetesWithTrident/2_Lab_NAS_iSCSI/3-svm-iscsi-config
 

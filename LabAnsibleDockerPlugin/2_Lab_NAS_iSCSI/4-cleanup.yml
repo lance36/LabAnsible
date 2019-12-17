@@ -6,5 +6,7 @@
 
 - name: Delete the SVM
   hosts: localhost
+  collections:
+    - netapp.ontap
   roles:
     - role: /etc/ansible/LabAnsible/LabAnsibleDockerPlugin/2_Lab_NAS_iSCSI/4-svm-cleanup

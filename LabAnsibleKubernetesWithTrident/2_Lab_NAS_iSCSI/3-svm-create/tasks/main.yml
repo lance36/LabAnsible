@@ -1,5 +1,5 @@
 - name: Create SVM
-  na_ontap_svm:
+  netapp.ontap.na_ontap_svm:
     state: present
     name: "{{ item.svm_name }}"
     root_volume: "{{ item.root_vol }}"
@@ -14,7 +14,7 @@
   with_items: "{{ SVMs }}"
 
 - name: Create NFS data LIF
-  na_ontap_interface:
+  netapp.ontap.na_ontap_interface:
     state: present 
     interface_name: "{{ item.LIF_Name }}" 
     home_port: "{{ item.LIF_home_port }}" 
@@ -32,7 +32,7 @@
   with_items: "{{ Create_LIFS }}" 
 
 - name: Create Route
-  na_ontap_net_routes:
+  netapp.ontap.na_ontap_net_routes:
     state: present
     destination: "{{ item.Destination }}"
     gateway: "{{ item.Gateway }}"
@@ -46,7 +46,7 @@
   with_items: "{{ Create_Routes }}"
 
 - name: Create ExportPolicyRule
-  na_ontap_export_policy_rule:
+  netapp.ontap.na_ontap_export_policy_rule:
     state: present
     policy_name: default
     vserver: "{{ item.Which_SVM }}" 
@@ -64,7 +64,7 @@
   with_items: "{{ Create_Routes }}"  
 
 - name: enable NFS
-  na_ontap_nfs:
+  netapp.ontap.na_ontap_nfs:
     state: present
     service_state: started
     vserver: "{{ item.svm_name }}" 
@@ -79,7 +79,7 @@
   with_items: "{{ SVMs }}"
 
 - name: Create FlexVols 
-  na_ontap_volume:
+  netapp.ontap.na_ontap_volume:
     state: present
     name: "{{ item.Name }}"    
     is_infinite: False
@@ -96,7 +96,7 @@
   with_items: "{{ Volumes }}"
  
 - name: Mount volumes to Junction Path
-  na_ontap_command:
+  netapp.ontap.na_ontap_command:
     command: volume mount -vserver "{{ item.SVM }}" -volume "{{ item.volume }}" -junction-path "{{ item.junction }}"
     hostname: "{{ netapp_hostname }}"
     username: "{{ netapp_username }}"

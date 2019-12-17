@@ -1,5 +1,5 @@
 - name: Create Aggregates
-  na_ontap_aggregate:
+  netapp.ontap.na_ontap_aggregate:
     state: present
     service_state: online
     name: "{{ item.aggregate_name }}" 
@@ -14,7 +14,7 @@
   with_items: "{{ aggregates }}"
 
 - name: Create SVM
-  na_ontap_svm:
+  netapp.ontap.na_ontap_svm:
     state: present
     name: "{{ item.svm_name }}"
     root_volume: "{{ item.root_vol }}"
@@ -28,7 +28,7 @@
   with_items: "{{ SVMs }}"
 
 - name: change nfs status
-  na_ontap_nfs:
+  netapp.ontap.na_ontap_nfs:
     state: present
     service_state: started
     vserver: "{{ item.svm_name }}" 
@@ -45,7 +45,7 @@
   with_items: "{{ SVMs }}"
 
 - name: Create file data LIF
-  na_ontap_interface:
+  netapp.ontap.na_ontap_interface:
     state: present 
     interface_name: "{{ item.LIF_Name }}" 
     home_port: "{{ LIF_home_port }}" 
@@ -63,7 +63,7 @@
   with_items: "{{ Create_LIFS }}" 
 
 - name: Create ExportPolicyRule
-  na_ontap_export_policy_rule:
+  netapp.ontap.na_ontap_export_policy_rule:
     state: present
     policy_name: All
     vserver: "{{ item.svm_name }}" 
@@ -81,7 +81,7 @@
   with_items: "{{ SVMs }}"  
 
 - name: Create FlexVols 
-  na_ontap_volume:
+  netapp.ontap.na_ontap_volume:
     state: present
     name: "{{ item.Name }}"    
     is_infinite: False

@@ -1,6 +1,8 @@
 ---
 - hosts: localhost
-  name: Create FlexVols 
+  name: Create FlexVols
+  collections:
+    - netapp.ontap
   tasks:
   - name: create flexvol
     na_ontap_volume:

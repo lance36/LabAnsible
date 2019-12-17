@@ -1,5 +1,5 @@
 - name: Enable iSCSI
-  na_ontap_iscsi:
+  netapp.ontap.na_ontap_iscsi:
     state: present
     service_state: started
     vserver: "{{ item.svm_name }}" 
@@ -11,7 +11,7 @@
   with_items: "{{ SVMs }}"
 
 - name: Create iSCSI data LIF
-  na_ontap_interface:
+  netapp.ontap.na_ontap_interface:
     state: present 
     interface_name: "{{ item.LIF_Name }}" 
     home_port: "{{ item.LIF_home_port }}" 
@@ -29,7 +29,7 @@
   with_items: "{{ Create_LIFS }}" 
 
 - name: Create iGroup
-  na_ontap_igroup:
+  netapp.ontap.na_ontap_igroup:
     state: present
     name: "{{ item.igroup_name }}"
     vserver: "{{ item.svm_name }}"
@@ -44,7 +44,7 @@
   when: igroups != None
 
 - name: Add IQN to iGroup
-  na_ontap_igroup_initiator:
+  netapp.ontap.na_ontap_igroup_initiator:
     vserver: "{{ item.svm_name }}"
     initiator_group: "{{ item.igroup_name }}"
     names: "{{ item.iqn_name }}" 
@@ -57,7 +57,7 @@
   when: iqns != None
 
 - name: Create FlexVols 
-  na_ontap_volume:
+  netapp.ontap.na_ontap_volume:
     state: present
     name: "{{ item.vol_name }}"    
     is_infinite: False
@@ -75,7 +75,7 @@
   when: luns != None
  
 - name: Lun Create
-  na_ontap_lun:
+  netapp.ontap.na_ontap_lun:
     state: present
     name: "{{ item.name }}"
     flexvol_name: "{{ item.vol_name }}"
@@ -94,7 +94,7 @@
   when: luns != None
 
 - name: Create LUN mapping
-  na_ontap_lun_map:
+  netapp.ontap.na_ontap_lun_map:
     state: present
     initiator_group_name: "{{ item.igroup }}"
     path: "/vol/{{ item.vol_name }}/{{ item.name }}"

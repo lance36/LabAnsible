@@ -3,7 +3,12 @@
 ################
 
 This lab is entended to test NetApp Ansible modules.
-The variables used in this repo correspond to the NetApp Lab on Demand "Using NetApp with Docker and Kubernetes v2.0"
+The variables used in this repo correspond to following NetApp Lab on Demand:
+   - "Using NetApp with Docker and Kubernetes v2.0"
+   - "Using Trident with Kubernetes and ONTAP v3.1"
+
+The playbooks you are about to run use the NetApp Collection available on Ansible Galaxy.
+This lab has been tested & validated with v19.11.0.
 
 The goal here is to create & configure a tenant (ie a SVM) on the ONTAP cluster, and mounts resources on several servers.
 

@@ -1,6 +1,8 @@
 ---
 - name: Deploy ONTAP Cluster config
   hosts: localhost
+  collections:
+    - netapp.ontap
   roles:
     - role: /etc/ansible/LabAnsible/LabAnsibleDockerPlugin/1_Lab_NAS/3-svm-create
 

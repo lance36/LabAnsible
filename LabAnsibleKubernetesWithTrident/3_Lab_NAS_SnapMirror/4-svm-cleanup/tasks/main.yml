@@ -1,6 +1,6 @@
 ---
 - name: Delete SnapMirror Relationships
-  na_ontap_snapmirror:
+  netapp.ontap.na_ontap_snapmirror:
     state: absent
     destination_path: "{{ item.dst_vserver }}:{{ item.dst_volume }}"
     source_hostname: "{{ item.src_hostname }}"
@@ -12,7 +12,7 @@
   with_items: "{{ SnapMirror_Volumes_Config }}"
 
 - name: Delete vserver peer
-  na_ontap_vserver_peer:
+  netapp.ontap.na_ontap_vserver_peer:
     state: absent
     peer_vserver: "{{ item.dst_vserver }}"
     vserver: "{{ item.src_vserver }}"
@@ -24,7 +24,7 @@
   with_items: "{{ SnapMirror_Global_Config }}"
 
 - name: Delete FlexVol
-  na_ontap_volume:
+  netapp.ontap.na_ontap_volume:
     state: absent
     name: "{{ item.Name }}"
     vserver: "{{ item.Which_SVM }}"
@@ -36,7 +36,7 @@
   with_items: "{{ Volumes }}"
 
 - name: Delete INTERCLUSTER LIF
-  na_ontap_interface:
+  netapp.ontap.na_ontap_interface:
     state: absent 
     interface_name: "{{ item.LIF_Name }}" 
     vserver: "{{ item.svm }}" 
@@ -48,7 +48,7 @@
   with_items: "{{ Delete_INTERCLUSTER_LIFS }}" 
 
 - name: Delete SVM
-  na_ontap_svm:
+  netapp.ontap.na_ontap_svm:
     state: absent
     name: "{{ item.svm_name }}"
     hostname: "{{ netapp_hostname }}"

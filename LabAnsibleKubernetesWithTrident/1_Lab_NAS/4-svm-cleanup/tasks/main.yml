@@ -1,6 +1,6 @@
 ---
 - name: Delete FlexVol
-  na_ontap_volume:
+  netapp.ontap.na_ontap_volume:
     state: absent
     name: "{{ item.Name }}"
     vserver: "{{ item.Which_SVM }}"
@@ -12,7 +12,7 @@
   with_items: "{{ Volumes }}"
 
 - name: Delete SVM
-  na_ontap_svm:
+  netapp.ontap.na_ontap_svm:
     state: absent
     name: "{{ item.svm_name }}"
     hostname: "{{ netapp_hostname }}"

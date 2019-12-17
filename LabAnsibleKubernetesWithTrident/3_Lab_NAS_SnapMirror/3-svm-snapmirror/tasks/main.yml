@@ -1,6 +1,6 @@
 # creating a cluster peering is only required when using 2 separate clusters
 - name: Create cluster peer
-  na_ontap_cluster_peer:
+  netapp.ontap.na_ontap_cluster_peer:
     state: present
     source_intercluster_lifs: "{{ item.src_lif }}"
     dest_intercluster_lifs: "{{ item.dst_lif }}"
@@ -16,7 +16,7 @@
 
 # the peer_cluster parameter is only required when using 2 separate clusters
 - name: Create vserver peer (in 2 separate clusters)
-  na_ontap_vserver_peer:
+  netapp.ontap.na_ontap_vserver_peer:
     state: present
     peer_vserver: "{{ item.dst_vserver }}"
     peer_cluster: "{{ netapp_hostname }}"
@@ -32,7 +32,7 @@
   when: item.local_cluster == false
 
 - name: Create vserver peer  (in a local cluster)
-  na_ontap_vserver_peer:
+  netapp.ontap.na_ontap_vserver_peer:
     state: present
     peer_vserver: "{{ item.dst_vserver }}"
     vserver: "{{ item.src_vserver }}"
@@ -47,7 +47,7 @@
   when: item.local_cluster == true
 
 - name: Validate destination FlexVol
-  na_ontap_volume:
+  netapp.ontap.na_ontap_volume:
     state: present
     name: "{{ item.dst_volume }}"
     is_infinite: False
@@ -65,7 +65,7 @@
   with_items: "{{ SnapMirror_Volumes_Config }}"
 
 - name: Create SnapMirror
-  na_ontap_snapmirror:
+  netapp.ontap.na_ontap_snapmirror:
     state: present
     source_volume: "{{ item.src_volume }}"
     destination_volume: "{{ item.dst_volume }}"
