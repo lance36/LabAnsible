@@ -4,12 +4,16 @@
 
 # Open bash terminal in VSCODE + clone code repository locally
 (in vscode)
+```
     terminal --> new terminal 
+```
 
 (in new terminal)
+```
     cd Documents
     git clone https://github.com/YvosOnTheHub/LabAnsible.git 
     cd LabAnsible/LabAnsibleKubernetesWithTrident
+```
 
 # SSH into host3
     ssh root@192.168.0.63
