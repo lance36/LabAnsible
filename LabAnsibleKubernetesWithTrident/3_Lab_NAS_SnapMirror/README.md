@@ -2,36 +2,6 @@
 ## ANSIBLE & SNAPMIRROR INTEGRATION
 ####################################
 
-# Open bash terminal in VSCODE + clone code repository locally
-(in vscode) 
-    terminal --> new terminal 
-
-(in new terminal)  
-    cd Documents
-    git clone https://github.com/YvosOnTheHub/LabAnsible.git 
-    cd LabAnsible/LabAnsibleKubernetesWithTrident
-
-# SSH into host5
-    ssh root@192.168.0.66
-    password: Netapp1!
-
-# Clone the repository in the centos environment
-    git clone https://github.com/YvosOnTheHub/LabAnsible.git
-
-# Create a specific kubernetes namespace for Ansible
-    kubectl create namespace ansible
-
-# Create the PVC & Deployment for Ansible
-    kubectl create -n ansible -f 0-Kubernetes-config/0-ansible-pvc.yaml
-    kubectl create -n ansible -f 0-Kubernetes-config/0-ansible-deployment.yaml
-
-# The upgrade of this deployment can be achieved using the following command (if using K8S 1.15+)
-# It will automatically download the latest available image
-    kubectl -n ansible rollout restart deploy ansible
-
-# Enter the Ansible pod
-    kubectl exec -it -n ansible $(kubectl get pod -n ansible --output=name) -- /bin/bash
-
 =>  you are now in the container
 
 # Clone github repo
@@ -39,7 +9,7 @@
     git clone https://github.com/YvosOnTheHub/LabAnsible.git 
     cd LabAnsible/LabAnsibleKubernetesWithTrident
 
-# Check the version of the NetApp Collection installed (verified with 19.11.0)
+# Check the version of the NetApp Collection installed (works with ansible 2.8 maximum)
     mazer list
 
 # Create and share ssh-keys with remote RHEL host (for instance "Rhel4", "Rhel5", "Rhel6")
@@ -72,9 +42,6 @@
 # Exit the container
     exit
 
-# If you need to also remove the Ansible App from Kubernetes
-    kubectl delete deploy ansible -n ansible
-    kubectl delete pvc ansible-content -n ansible
-    kubectl delete pvc ansible-ssh -n ansible
+# If you need to also remove the Ansible App from Kubernetes, simply delete the namespace
     kubectl delete namespace ansible
 

@@ -9,7 +9,7 @@ spec:
   resources:
     requests:
       storage: 100Mi
-  storageClassName: storage-class-nas
+  storageClassName: sc-for-ansible
 ---
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -20,5 +20,5 @@ spec:
     - ReadWriteMany
   resources:
     requests:
-      storage: 100Mi
-  storageClassName: storage-class-nas
+      storage: 50Mi
+  storageClassName: sc-for-ansible
