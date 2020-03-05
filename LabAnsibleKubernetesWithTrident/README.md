@@ -3,10 +3,10 @@
 ############################
 
 # Open bash terminal in VSCODE + clone code repository locally
-(in vscode) 
+(in vscode)
     terminal --> new terminal 
 
-(in new terminal)  
+(in new terminal)
     cd Documents
     git clone https://github.com/YvosOnTheHub/LabAnsible.git 
     cd LabAnsible/LabAnsibleKubernetesWithTrident
