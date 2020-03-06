@@ -1,6 +1,6 @@
-############################
+##################################
 ## LAB ANSIBLE - FIRST STEPS
-############################
+##################################
 
 ### Open bash terminal in VSCODE + clone code repository locally
 (in vscode)
