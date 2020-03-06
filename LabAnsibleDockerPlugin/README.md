@@ -12,7 +12,7 @@
 ```
     cd Documents
     git clone https://github.com/YvosOnTheHub/LabAnsible.git 
-    cd LabAnsible/LabAnsibleDockerPlugin/3_Lab_NAS_SnapMirror
+    cd LabAnsible/LabAnsibleDockerPlugin/
 ```
 
 ### SSH into host5

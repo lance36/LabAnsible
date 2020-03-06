@@ -21,6 +21,7 @@
 
 ### Clone the repository in the centos environment
     git clone https://github.com/YvosOnTheHub/LabAnsible.git
+    cd LabAnsible/LabAnsibleKubernetesWithTrident
 
 ### We will create here a specific backend for Trident & a specific StorageClass for this lab (just in case)
     tridentctl -n trident create backend -f 0-Trident-config/backend-ansible.json
