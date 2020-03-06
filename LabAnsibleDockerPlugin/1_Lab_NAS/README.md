@@ -9,8 +9,17 @@
     git clone https://github.com/YvosOnTheHub/LabAnsible.git 
     cd LabAnsible/LabAnsibleDockerPlugin 
 
-### Check the version of the NetApp Collection installed (works with ansible 2.8 maximum)
+
+### Check the version of the NetApp Collection installed
+##### With Ansible 2.8 max
     mazer list
+##### Starting with Ansible Collections (Ansible 2.9 min)
+    more /root/.ansible/collections/ansible_collections/netapp/ontap/MANIFEST.json | grep version
+
+### If an upgrade of the collection is required, run the following
+    ansible-galaxy collection install netapp.ontap
+
+
 
 ### Create and share ssh-keys with remote RHEL host (for instance "Rhel4", "Rhel5", "Rhel6")
     ssh-keygen (keep the default values for all inputs, ie press 'enter' a few times)
