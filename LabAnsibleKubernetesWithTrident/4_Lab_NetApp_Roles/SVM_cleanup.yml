@@ -1,0 +1,5 @@
+---
+- name: Unmount resources
+  hosts: localhost
+  roles:  
+    - role: /etc/ansible/LabAnsible/LabAnsibleKubernetesWithTrident/4_Lab_NetApp_Roles/svm-cleanup

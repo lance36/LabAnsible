@@ -1,0 +1,21 @@
+cluster: cluster1
+
+netapp_hostname: 192.168.0.101
+netapp_username: admin
+netapp_password: Netapp1!
+
+vservers: 
+- { name: SVM_CREATED_BY_ANSIBLE, aggr: aggr1, protocol: nfs;iscsi }
+
+lifs: 
+- { name: nfs_data_lif, vserver: SVM_CREATED_BY_ANSIBLE, node: cluster1-01, port: e0c, protocol: nfs, address: 192.168.0.120, netmask: 255.255.255.0 }
+- { name: iscsi_data_lif, vserver: SVM_CREATED_BY_ANSIBLE, node: cluster1-01, port: e0c, protocol: iscsi, address: 192.168.0.150, netmask: 255.255.255.0 } 
+
+nas:
+   - { name: nfs_share, protocol: nfs, vserver: SVM_CREATED_BY_ANSIBLE, client: 192.168.0.0/24, ro: sys, rw: sys, su: sys, aggr: aggr1, size: 1 }
+
+igroups:
+  - { name: igroup1, vserver: SVM_CREATED_BY_ANSIBLE, group_type: iscsi, ostype: linux, initiator:  ”iqn.1994-05.com.redhat:rhel4.demo.netapp.com,iqn.1994-05.com.redhat:rhel5.demo.netapp.com" }
+
+luns:
+ - { name: lun1, vol_name: lun_vol, aggr: aggr1, vserver: SVM_CREATED_BY_ANSIBLE, size: 10, ostype: linux, space_reserve: false, igroup: igroup1 }

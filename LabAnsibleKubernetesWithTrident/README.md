@@ -45,3 +45,4 @@
     - 1_Lab_NAS: Create & Mount 2 NFS volumes on 3 hosts
     - 2_Lab_NAS_iSCSI: Create & Mount NFS volumes & iSCSI LUNs on 3 hosts
     - 3_Lab_NAS_SnapMirror: Create, Mount & Mirror 2 NFS volumes
+    - 4_Lab_NetApp_Roles: Use roles provided as part of the NetApp Ansible Collection

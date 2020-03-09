@@ -1,0 +1,21 @@
+#-----> iSCSI LUNs to unmap
+luns:
+    - { name: lun1, vol_name: lun_vol, svm_name: SVM_CREATED_BY_ANSIBLE, igroup: igroup1 }
+
+#-----> iGroups to delete
+igroups: 
+    - { svm_name: SVM_CREATED_BY_ANSIBLE, igroup_name: igroup1 }
+
+#-----> FlexVols to delete
+Volumes:
+    - { Name: nfs_share, Which_SVM: SVM_CREATED_BY_ANSIBLE }
+    - { Name: lun_vol, Which_SVM: SVM_CREATED_BY_ANSIBLE }
+
+#-----> SVM to delete 
+SVMs: 
+    - { svm_name: SVM_CREATED_BY_ANSIBLE }
+
+##----> Vaulted Credentials 
+netapp_hostname: 192.168.0.101
+netapp_username: admin
+netapp_password: Netapp1!
