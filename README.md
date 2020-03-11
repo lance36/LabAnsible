@@ -22,3 +22,7 @@ Scenarios
    - Create & Mount 2 NFS volumes on 3 hosts
    - Create & Mount NFS volumes & iSCSI LUNs on 3 hosts
    - Create, Mount & Mirror 2 NFS volumes 
+   - Use NetApp's Ansible roles to create & configure a SVM
+
+NB: if you do not know much about Kubernetes, do not be afraid to give a shout to the third chapter.
+Everything is described in a step by step fashion.

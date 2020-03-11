@@ -2,19 +2,6 @@
 ## LAB ANSIBLE - FIRST STEPS
 ##################################
 
-### Open bash terminal in VSCODE + clone code repository locally
-(in vscode)
-```
-    terminal --> new terminal 
-```
-
-(in new terminal)
-```
-    cd Documents
-    git clone https://github.com/YvosOnTheHub/LabAnsible.git 
-    cd LabAnsible/LabAnsibleKubernetesWithTrident
-```
-
 ### SSH into host3
     ssh root@192.168.0.63
     password: Netapp1!
@@ -42,7 +29,7 @@
     kubectl exec -it -n ansible $(kubectl get pod -n ansible --output=name) -- /bin/bash
 
 ### Depending on what lab you want to showcase, you will find the next steps in the following sub-dir
-    - 1_Lab_NAS: Create & Mount 2 NFS volumes on 3 hosts
-    - 2_Lab_NAS_iSCSI: Create & Mount NFS volumes & iSCSI LUNs on 3 hosts
-    - 3_Lab_NAS_SnapMirror: Create, Mount & Mirror 2 NFS volumes
-    - 4_Lab_NetApp_Roles: Use roles provided as part of the NetApp Ansible Collection
+- 1_Lab_NAS: Create & Mount 2 NFS volumes on 3 hosts
+- 2_Lab_NAS_iSCSI: Create & Mount NFS volumes & iSCSI LUNs on 3 hosts
+- 3_Lab_NAS_SnapMirror: Create, Mount & Mirror 2 NFS volumes
+- 4_Lab_NetApp_Roles: Use roles provided as part of the NetApp Ansible Collection

@@ -2,19 +2,6 @@
 ## LAB ANSIBLE - FIRST STEPS
 ##################################
 
-### Open bash terminal in VSCODE + clone code repository locally
-(in vscode)
-```
-    terminal --> new terminal 
-```
-
-(in new terminal)
-```
-    cd Documents
-    git clone https://github.com/YvosOnTheHub/LabAnsible.git 
-    cd LabAnsible/LabAnsibleDockerPlugin/
-```
-
 ### SSH into host5
     ssh root@192.168.0.66
     password: Netapp1!
@@ -38,6 +25,6 @@
     docker run -it -v ansible:/etc/ansible -v ssh-keys:/root/.ssh schmots1/netapp-ansible /bin/bash
 
 ### Depending on what lab you want to showcase, you will find the next steps in the following sub-dir
-    - 1_Lab_NAS: Create & Mount 2 NFS volumes on 3 hosts
-    - 2_Lab_NAS_iSCSI: Create & Mount NFS volumes & iSCSI LUNs on 3 hosts
-    - 3_Lab_NAS_SnapMirror: Create, Mount & Mirror 2 NFS volumes
+- 1_Lab_NAS: Create & Mount 2 NFS volumes on 3 hosts
+- 2_Lab_NAS_iSCSI: Create & Mount NFS volumes & iSCSI LUNs on 3 hosts
+- 3_Lab_NAS_SnapMirror: Create, Mount & Mirror 2 NFS volumes

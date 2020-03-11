@@ -1,17 +1,4 @@
 
-### Open bash terminal in VSCODE + clone code repository locally
-(in vscode)
-```
-terminal --> new terminal 
-```
-
-(in new terminal)
-```
-    cd Documents
-    git clone https://github.com/YvosOnTheHub/LabAnsible.git 
-    cd LabAnsible/LabAnsibleDockerSimple
-```
-
 ### SSH into "Rhel5"
     ssh root@192.168.0.66   
     password: Netapp1!
