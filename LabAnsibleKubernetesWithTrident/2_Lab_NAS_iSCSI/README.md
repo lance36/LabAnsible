@@ -36,7 +36,7 @@
 ### Make sure the ONTAP IP addresses to use are free. If the result of the following is 0, you are good to go
     ansible -m ping ontap_lab_nas_iscsi | grep SUCCESS | wc -l
 
-### Install NFS utils on RHEL Host with ansible playbook  (change into repository directory!)
+### Install NFS utils on RHEL Host with ansible playbook
     ansible-playbook 2_Lab_NAS_iSCSI/1-install-nfs-utils.yml
 
 ### Run "playbook" for single volume just to try it out

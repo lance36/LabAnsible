@@ -36,11 +36,14 @@
 ### Make sure the ONTAP IP addresses to use are free. If the result of the following is 0, you are good to go
     ansible -m ping ontap_lab_snapmirror | grep SUCCESS | wc -l
 
-### Install NFS utils on RHEL Host with ansible playbook  (change into repository directory!)
+### Install NFS utils on RHEL Host with ansible playbook 
     ansible-playbook 3_Lab_NAS_SnapMirror/1-install-nfs-utils.yml
 
 ### Run "playbook" for single volume just to try it out
     ansible-playbook 3_Lab_NAS_SnapMirror/2-flexvol-create.yml
+
+‌‌#### If you want to see the ressources mounted on the server, live, I would recommend open 3 new Putty windows on RHEL4, RHEL5 & RHEL6 & run the following
+    watch df /home/*
 
 ### Run "role" to configure a new SVM (inspect it in VSCODE to see what it does!)
     ansible-playbook 3_Lab_NAS_SnapMirror/3-svm-role_and_mount-resources.yml 
