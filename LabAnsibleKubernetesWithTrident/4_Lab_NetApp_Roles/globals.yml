@@ -15,7 +15,7 @@ nas:
    - { name: nfs_share, protocol: nfs, vserver: SVM_CREATED_BY_ANSIBLE, client: 192.168.0.0/24, ro: sys, rw: sys, su: sys, aggr: aggr1, size: 1 }
 
 igroups:
-  - { name: igroup1, vserver: SVM_CREATED_BY_ANSIBLE, group_type: iscsi, ostype: linux, initiator:  "iqn.1994-05.com.redhat:rhel4.demo.netapp.com,iqn.1994-05.com.redhat:rhel5.demo.netapp.com" }
+  - { name: igroup1, vserver: SVM_CREATED_BY_ANSIBLE, group_type: iscsi, ostype: linux, initiator: "iqn.1994-05.com.redhat:rhel4.demo.netapp.com,iqn.1994-05.com.redhat:rhel5.demo.netapp.com" }
 
 luns:
  - { name: lun1, vol_name: lun_vol, aggr: aggr1, vserver: SVM_CREATED_BY_ANSIBLE, size: 10, ostype: linux, space_reserve: false, igroup: igroup1 }
