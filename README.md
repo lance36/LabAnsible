@@ -18,7 +18,7 @@ Scenarios
    - Create & Mount 2 NFS volumes on 3 hosts
    - Create & Mount NFS volumes & iSCSI LUNs on 3 hosts
    - Create, Mount & Mirror 2 NFS volumes 
-3. Use Ansible as a Kubernetes App with a PVC to host these playbooks (*PREFERED*)
+3. Use Ansible as a Kubernetes App with a PVC to host these playbooks (*PREFERRED*)
    - Create & Mount 2 NFS volumes on 3 hosts
    - Create & Mount NFS volumes & iSCSI LUNs on 3 hosts
    - Create, Mount & Mirror 2 NFS volumes 
