@@ -13,11 +13,11 @@ The goal here is to create & configure a tenant (ie a SVM) on the ONTAP cluster,
 
 Scenarios
 ---------
-1. Use Ansible as simple Docker Container
+1. Use Ansible as simple Docker Container  
 2. Use Ansible as a Docker Container, which mounts a persistent volume with Trident for Docker
    - Create & Mount 2 NFS volumes on 3 hosts
    - Create & Mount NFS volumes & iSCSI LUNs on 3 hosts
-   - Create, Mount & Mirror 2 NFS volumes 
+   - Create, Mount & Mirror 2 NFS volumes  
 [3.](LabAnsibleKubernetesWithTrident) Use Ansible as a Kubernetes App with a PVC to host these playbooks (*PREFERRED*)
    - Create & Mount 2 NFS volumes on 3 hosts
    - Create & Mount NFS volumes & iSCSI LUNs on 3 hosts
