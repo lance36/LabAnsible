@@ -19,12 +19,12 @@ Scenarios
    - Create, Mount & Mirror 2 NFS volumes 
    - Use NetApp's Ansible roles to create & configure a SVM  
 
-2. Use Ansible as a Docker Container, which mounts a persistent volume with Trident for Docker
+[2.](LabAnsibleDockerPlugin) Use Ansible as a Docker Container, which mounts a persistent volume with Trident for Docker
    - Create & Mount 2 NFS volumes on 3 hosts
    - Create & Mount NFS volumes & iSCSI LUNs on 3 hosts
    - Create, Mount & Mirror 2 NFS volumes  
 
-3. Use Ansible as simple Docker Container  
+[3.](LabAnsibleDockerSimple) Use Ansible as simple Docker Container  
 
 NB: if you do not know much about Kubernetes, do not be afraid to give a shout to the third chapter.
 Everything is described in a step by step fashion.
