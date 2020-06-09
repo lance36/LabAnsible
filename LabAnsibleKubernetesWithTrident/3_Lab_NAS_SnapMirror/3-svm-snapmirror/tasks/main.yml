@@ -67,6 +67,7 @@
 - name: Create SnapMirror
   netapp.ontap.na_ontap_snapmirror:
     state: present
+    relationship_type: data_protection
     source_volume: "{{ item.src_volume }}"
     destination_volume: "{{ item.dst_volume }}"
     source_vserver: "{{ item.src_vserver }}"

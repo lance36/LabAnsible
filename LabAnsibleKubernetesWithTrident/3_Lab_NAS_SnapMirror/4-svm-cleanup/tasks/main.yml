@@ -2,6 +2,7 @@
 - name: Delete SnapMirror Relationships
   netapp.ontap.na_ontap_snapmirror:
     state: absent
+    relationship_type: data_protection
     destination_path: "{{ item.dst_vserver }}:{{ item.dst_volume }}"
     source_hostname: "{{ item.src_hostname }}"
     hostname: "{{ netapp_hostname }}"

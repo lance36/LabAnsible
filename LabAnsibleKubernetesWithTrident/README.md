@@ -25,7 +25,7 @@
 ### If for whatever reason, you need to update the newest image (release of a new collection for instance), it can be achieved using the following command (if using K8S 1.15+)
     kubectl -n ansible rollout restart deploy ansible
 
-### Enter the Ansible pod
+### Enter the Ansible pod (it takes the POD about 25seconds to be ready)
     kubectl exec -it -n ansible $(kubectl get pod -n ansible --output=name) -- /bin/bash
 
 ### Depending on what lab you want to showcase, you will find the next steps in the following sub-dir
