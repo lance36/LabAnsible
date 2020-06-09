@@ -29,7 +29,7 @@
     kubectl exec -it -n ansible $(kubectl get pod -n ansible --output=name) -- /bin/bash
 
 ### Depending on what lab you want to showcase, you will find the next steps in the following sub-dir
-- 1_Lab_NAS: Create & Mount 2 NFS volumes on 3 hosts
-- 2_Lab_NAS_iSCSI: Create & Mount NFS volumes & iSCSI LUNs on 3 hosts
-- 3_Lab_NAS_SnapMirror: Create, Mount & Mirror 2 NFS volumes
-- 4_Lab_NetApp_Roles: Use roles provided as part of the NetApp Ansible Collection
+- [1_Lab_NAS](1_Lab_NAS): Create & Mount 2 NFS volumes on 3 hosts
+- [2_Lab_NAS_iSCSI](2_Lab_NAS_iSCSI): Create & Mount NFS volumes & iSCSI LUNs on 3 hosts
+- [3_Lab_NAS_SnapMirror](3_Lab_NAS_SnapMirror): Create, Mount & Mirror 2 NFS volumes
+- [4_Lab_NetApp_Roles](4_Lab_NetApp_Roles): Use roles provided as part of the NetApp Ansible Collection
