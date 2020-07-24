@@ -1,0 +1,17 @@
+---
+- hosts: localhost
+  collections:
+    - netapp.ontap
+  name: Delete FlexVol
+  tasks:
+  - name: delete flexvol
+    netapp.ontap.na_ontap_volume:
+     state: absent
+     name: flex_test
+     vserver: svm1
+     hostname: 192.168.0.101
+     username: admin 
+     password: Netapp1!
+     https: true
+     validate_certs: false
+     

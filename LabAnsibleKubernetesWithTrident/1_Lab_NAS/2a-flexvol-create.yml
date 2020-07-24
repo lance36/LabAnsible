@@ -1,0 +1,22 @@
+---
+- hosts: localhost
+  collections:
+    - netapp.ontap
+  name: Create FlexVol
+  tasks:
+  - name: create flexvol
+    netapp.ontap.na_ontap_volume:
+     state: present
+     name: flex_test
+     is_infinite: False
+     aggregate_name: aggr1
+     size: 1
+     size_unit: gb
+     junction_path: /flex       
+     vserver: svm1
+     hostname: 192.168.0.101
+     username: admin 
+     password: Netapp1!
+     https: true
+     validate_certs: false
+     
