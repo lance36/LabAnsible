@@ -13,13 +13,6 @@ cd LabAnsible/LabAnsibleKubernetesWithTrident
 ```
 
 ### Check the version of the NetApp Collection installed
-##### With Ansible 2.8 max
-
-```bash
-mazer list
-```
-
-##### Starting with Ansible Collections (Ansible 2.9 min)
 
 ```bash
 more /usr/share/ansible/collections/ansible_collections/netapp/ontap/MANIFEST.json | grep version

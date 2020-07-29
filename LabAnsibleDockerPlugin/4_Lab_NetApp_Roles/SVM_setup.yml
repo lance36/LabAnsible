@@ -1,0 +1,43 @@
+---
+- hosts: localhost
+  gather_facts: no
+  collections:
+  - netapp.ontap
+
+  vars:
+    file: globals.yml
+    input: &input 
+      hostname: "{{ netapp_hostname }}" 
+      username: "{{ netapp_username }}" 
+      password: "{{ netapp_password }}" 
+    
+  vars_files: 
+   - "{{ file }}"
+ 
+  tasks: 
+  - name: Get Ontapi version
+    na_ontap_info:
+      state: info
+      <<: *input
+      https: true
+      ontapi: 32
+      validate_certs: false
+    register: netapp
+
+  - import_role: 
+     name: na_ontap_vserver_create
+    vars: 
+      <<: *input
+    when: vservers != None
+
+  - import_role: 
+     name: na_ontap_nas_create
+    vars: 
+      <<: *input
+    when: nas != None
+
+  - import_role: 
+     name: na_ontap_san_create
+    vars: 
+      <<: *input
+    when: luns != None

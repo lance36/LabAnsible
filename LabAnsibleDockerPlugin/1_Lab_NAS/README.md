@@ -15,10 +15,7 @@ cd LabAnsible/LabAnsibleDockerPlugin
 ### Check the version of the NetApp Collection installed
 
 ```bash
-# With Ansible 2.8 max
-$ mazer list
-# Starting with Ansible Collections (Ansible 2.9 min)
-$ more /root/.ansible/collections/ansible_collections/netapp/ontap/MANIFEST.json | grep version
+more /usr/share/ansible/collections/ansible_collections/netapp/ontap/MANIFEST.json | grep version
 ```
 
 ### If an upgrade of the collection is required, run the following
