@@ -1,0 +1,64 @@
+---
+- hosts: localhost
+  collections:
+    - netapp.ontap
+
+  vars:
+    param: &param
+      vserver: svm1
+      hostname: 192.168.0.101
+      username: admin 
+      password: Netapp1!
+      https: true
+      validate_certs: false
+
+  name: Create a LUN
+  tasks:
+  - name: Create iGroup
+    na_ontap_igroup:
+      state: present
+      name: ansible
+      initiator_group_type: iscsi
+      ostype: linux  
+      <<: *param
+
+
+  - name: Create Flexvol
+    na_ontap_volume:
+     state: present
+     name: ansible_vol
+     aggregate_name: aggr1
+     size: 1
+     size_unit: gb
+     junction_path: /ansible
+     snapshot_policy: ansible_policy
+     <<: *param
+
+  - name: Create LUN
+    na_ontap_lun:
+      state: present
+      name: ansibleLUN
+      flexvol_name: ansible_vol
+      size: 5
+      size_unit: mb
+      ostype: linux
+      space_reserve: True
+      <<: *param
+
+  - name: Create LUN mapping
+    netapp.ontap.na_ontap_lun_map:
+      state: present
+      initiator_group_name: ansible
+      path: "/vol/ansible_vol/ansibleLUN"
+      <<: *param
+
+  - name: retrieve information
+    na_ontap_info: 
+     state: info
+     gather_subset: 
+       - lun_info
+       - lun_map_info
+     <<: *param
+    register: ontap_info
+  - debug:
+      msg: "{{ ontap_info.ontap_info }}"

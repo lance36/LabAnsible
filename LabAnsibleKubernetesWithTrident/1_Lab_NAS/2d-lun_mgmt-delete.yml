@@ -1,0 +1,44 @@
+---
+- hosts: localhost
+  collections:
+    - netapp.ontap
+
+  vars:
+    param: &param
+      vserver: svm1
+      hostname: 192.168.0.101
+      username: admin 
+      password: Netapp1!
+      https: true
+      validate_certs: false
+
+  name: LUN cleanup
+  tasks:
+  - name: Unmap LUN
+    na_ontap_lun_map:
+      state: absent
+      initiator_group_name: ansible
+      path: "/vol/ansible_vol/ansibleLUN"
+      <<: *param
+
+  - name: Delete LUN
+    na_ontap_lun:
+      state: absent
+      name: ansibleLUN
+      flexvol_name: ansible_vol
+      <<: *param
+
+  - name: Delete iGroup
+    na_ontap_igroup:
+      state: absent
+      name: ansible
+      <<: *param
+
+
+  - name: Delete Flexvol
+    na_ontap_volume:
+     state: absent
+     name: ansible_vol
+     <<: *param
+
+

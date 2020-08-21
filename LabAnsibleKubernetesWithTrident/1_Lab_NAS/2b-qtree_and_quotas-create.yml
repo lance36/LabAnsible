@@ -1,0 +1,57 @@
+---
+- hosts: localhost
+  collections:
+    - netapp.ontap
+
+  vars:
+    param: &param
+      vserver: svm1
+      hostname: 192.168.0.101
+      username: admin 
+      password: Netapp1!
+      https: true
+      validate_certs: false
+
+  name: Create Qtree & Quota
+  tasks:
+  - name: Create Flexvol
+    na_ontap_volume:
+     state: present
+     name: ansible_vol
+     aggregate_name: aggr1
+     size: 1
+     size_unit: gb
+     junction_path: /ansible       
+     <<: *param
+
+  - name: Create Qtrees
+    na_ontap_qtree:
+     state: present
+     name: ansible_QTree
+     flexvol_name: ansible_vol
+     export_policy: default
+     security_style: unix
+     oplocks: disabled
+     <<: *param
+
+  - name: Add Quota to Qtree
+    na_ontap_quotas:
+     state: present
+     volume: ansible_vol
+     quota_target: /vol/ansible/ansible_QTree
+     type: tree
+     file_limit: '5'
+     disk_limit: 500M
+     set_quota_status: true
+     <<: *param
+
+  - name: retrieve information
+    na_ontap_info: 
+     state: info
+     gather_subset: 
+       - qtree_info
+       - quota_report_info
+     <<: *param
+    register: ontap_info
+  - debug:
+      msg: "{{ ontap_info.ontap_info }}"
