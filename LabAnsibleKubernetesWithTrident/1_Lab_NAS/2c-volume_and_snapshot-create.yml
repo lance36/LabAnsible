@@ -43,7 +43,7 @@
      comment: "snap created by ansible"
      <<: *param
 
-  - name: retrieve information
+  - name: Retrieve information
     na_ontap_info: 
      state: info
      gather_subset: 

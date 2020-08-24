@@ -38,14 +38,14 @@
     na_ontap_quotas:
      state: present
      volume: ansible_vol
-     quota_target: /vol/ansible/ansible_QTree
+     quota_target: /vol/ansible_vol/ansible_QTree
      type: tree
      file_limit: '5'
      disk_limit: 500M
      set_quota_status: true
      <<: *param
 
-  - name: retrieve information
+  - name: Retrieve information
     na_ontap_info: 
      state: info
      gather_subset: 
