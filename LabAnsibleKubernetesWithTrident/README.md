@@ -49,6 +49,16 @@ kubectl -n ansible rollout restart deploy ansible
 kubectl exec -it -n ansible $(kubectl get pod -n ansible --output=name) -- /bin/bash
 ```
 
+### I would recommend the previous line into *bash* so that you can easily reenter the container
+
+```bash
+$ cat <<EOT >> ~/.bashrc
+alias kansible='kubectl exec -it -n ansible $(kubectl get pod -n ansible --output=name) -- /bin/bash'
+EOT
+```
+
+Don't forget to type in _bash_ in order to take the modifications into account
+
 ### Depending on what lab you want to showcase, you will find the next steps in the following sub-dir
 
 - [1_Lab_NAS](1_Lab_NAS): Create & Mount 2 NFS volumes on 3 hosts
