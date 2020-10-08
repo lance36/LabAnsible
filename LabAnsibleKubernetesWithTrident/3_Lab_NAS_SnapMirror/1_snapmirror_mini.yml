@@ -1,0 +1,46 @@
+---
+- hosts: localhost
+  collections:
+    - netapp.ontap
+
+  vars:
+    param: &param
+      hostname: 192.168.0.101
+      username: admin 
+      password: Netapp1!
+      https: true
+      validate_certs: false
+
+  name: Snapmirror demo
+  tasks:
+  - name: Create SVM
+    netapp.ontap.na_ontap_svm:
+     state: present
+     name: "svm2"
+     root_volume: "root"
+     root_volume_aggregate: "aggr1" 
+     root_volume_security_style: unix
+     allowed_protocols: nfs 
+     <<: *param
+
+  - name: Create NFS data LIF
+    netapp.ontap.na_ontap_interface:
+     state: present 
+     interface_name: "svm2_nfs" 
+     home_port: "e0d" 
+     home_node: "cluster1-01" 
+     role: data
+     protocols: nfs
+     address: "192.168.0.150"
+     netmask: "255.255.255.0"
+     vserver: "svm2" 
+     <<: *param
+
+  - name: Create vserver peer  (in a local cluster)
+    netapp.ontap.na_ontap_vserver_peer:
+     state: present
+     vserver: "svm1"
+     peer_vserver: "svm2"
+     applications: snapmirror
+     dest_hostname: "192.168.0.101"
+     <<: *param
