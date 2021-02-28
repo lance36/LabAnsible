@@ -28,9 +28,3 @@ cat <<EOT >> ~/.bashrc
 alias kansible='kubectl exec -it -n ansible $(kubectl get pod -n ansible --output=name) -- /bin/bash'
 EOT
 bash
-
-echo "#######################################################################################################"
-echo "Check"
-echo "#######################################################################################################"
-
-kubectl get -n ansible pod --watch
