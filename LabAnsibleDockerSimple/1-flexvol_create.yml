@@ -12,7 +12,7 @@
      aggregate_name: aggr1
      size: 1
      size_unit: gb         
-     vserver: svm1
+     vserver: nfs_svm
      hostname: 192.168.0.101
      username: admin 
      password: Netapp1!

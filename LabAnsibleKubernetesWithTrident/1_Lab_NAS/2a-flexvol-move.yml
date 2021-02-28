@@ -9,7 +9,7 @@
      state: present
      name: flex_test
      aggregate_name: aggr2
-     vserver: svm1
+     vserver: nfs_svm
      hostname: 192.168.0.101
      username: admin 
      password: Netapp1!

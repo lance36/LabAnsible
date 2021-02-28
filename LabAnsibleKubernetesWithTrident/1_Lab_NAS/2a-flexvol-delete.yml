@@ -8,7 +8,7 @@
     netapp.ontap.na_ontap_volume:
      state: absent
      name: flex_test
-     vserver: svm1
+     vserver: nfs_svm
      hostname: 192.168.0.101
      username: admin 
      password: Netapp1!

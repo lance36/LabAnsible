@@ -5,7 +5,7 @@
 This lab is entended to test NetApp Ansible modules.
 The variables used in this repo correspond to following NetApp Lab on Demand:
 
-- "Using Trident with Kubernetes and ONTAP v3.1"
+- "Using Trident with Kubernetes and ONTAP v4.0"
 
 The playbooks you are about to run use the NetApp Collection available on Ansible Galaxy.
 This lab has been tested & validated with the schmots1/ansible image v15 (March 2020).

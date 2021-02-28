@@ -16,7 +16,7 @@
   - name: Create SVM
     netapp.ontap.na_ontap_svm:
      state: present
-     name: "svm2"
+     name: "nfs_svm2"
      root_volume: "root"
      root_volume_aggregate: "aggr1" 
      root_volume_security_style: unix
@@ -33,7 +33,7 @@
      set_password: Netapp1!
      lock_user: False
      role_name: vsadmin
-     vserver: svm2
+     vserver: nfs_svm2
      <<: *param
 
   - name: Create NFS data LIF
@@ -47,14 +47,14 @@
      firewall_policy: mgmt-nfs
      address: "192.168.0.150"
      netmask: "255.255.255.0"
-     vserver: "svm2" 
+     vserver: "nfs_svm2" 
      <<: *param
 
   - name: Create vserver peer  (in a local cluster)
     netapp.ontap.na_ontap_vserver_peer:
      state: present
-     vserver: "svm1"
-     peer_vserver: "svm2"
+     vserver: "nfs_svm"
+     peer_vserver: "nfs_svm2"
      applications: snapmirror
      dest_hostname: "192.168.0.101"
      <<: *param
