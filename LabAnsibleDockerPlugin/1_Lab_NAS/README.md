@@ -60,7 +60,7 @@ ansible-playbook 1_Lab_NAS/1-install-nfs-utils.yml
 ### Run "playbook" for single volume just to try it out
 
 ```bash
-ansible-playbook 1_Lab_NAS/2-flexvol-create.yml
+ansible-playbook 1_Lab_NAS/2a-flexvol-create.yml
 ```
 
 #### If you want to see the ressources mounted on the server, live, I would recommend open 3 new Putty windows on RHEL4, RHEL5 & RHEL6 & run the following
