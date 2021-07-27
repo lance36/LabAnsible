@@ -12,10 +12,8 @@ SnapMirror_Volumes_Config:
 Volumes:
     - { Name: vol1_dst, Which_SVM: DEMO_ANSIBLE_DST }
     - { Name: vol2_dst, Which_SVM: DEMO_ANSIBLE_DST }
-    - { Name: ansible_dst_root, Which_SVM: DEMO_ANSIBLE_DST }
     - { Name: vol1, Which_SVM: DEMO_ANSIBLE_SRC }
     - { Name: vol2, Which_SVM: DEMO_ANSIBLE_SRC }
-    - { Name: ansible_src_root, Which_SVM: DEMO_ANSIBLE_SRC }
 
 #-----> SVM to delete 
 SVMs: 

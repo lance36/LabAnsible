@@ -46,32 +46,15 @@
   with_items: "{{ SnapMirror_Global_Config }}"
   when: item.local_cluster == true
 
-- name: Validate destination FlexVol
-  netapp.ontap.na_ontap_volume:
-    state: present
-    name: "{{ item.dst_volume }}"
-    is_infinite: False
-    aggregate_name: "{{ item.dst_aggr }}"
-    size: 20
-    size_unit: mb
-    type: DP
-    #junction_path: "/{{ dst_volume }}"
-    vserver: "{{ item.dst_vserver }}"
-    hostname: "{{ netapp_hostname }}"
-    username: "{{ netapp_username }}"
-    password: "{{ netapp_password }}"
-    https: true
-    validate_certs: false
-  with_items: "{{ SnapMirror_Volumes_Config }}"
-
 - name: Create SnapMirror
   netapp.ontap.na_ontap_snapmirror:
     state: present
-    relationship_type: data_protection
-    source_volume: "{{ item.src_volume }}"
-    destination_volume: "{{ item.dst_volume }}"
-    source_vserver: "{{ item.src_vserver }}"
-    destination_vserver: "{{ item.dst_vserver }}"
+    source_endpoint:
+          path: "{{ item.src_vserver + ':' + item.src_volume }}"
+    destination_endpoint:
+          path: "{{ item.dst_vserver + ':' + item.dst_volume }}"
+    create_destination:
+          enabled: true
     hostname: "{{ netapp_hostname }}"
     username: "{{ netapp_username }}"
     password: "{{ netapp_password }}"
