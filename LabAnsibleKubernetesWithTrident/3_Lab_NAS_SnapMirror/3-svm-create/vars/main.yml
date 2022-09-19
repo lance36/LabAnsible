@@ -13,9 +13,9 @@ Create_DATA_LIFS:
 #-----> Create INTERCLUSTER Logical Interfaces (LIFs) 
 Create_INTERCLUSTER_LIFS:
     - { LIF_Name: INTERCLUSTER_SRC, LIF_IP: 192.168.0.200, svm: cluster1, LIF_home_node: cluster1-01, 
-        LIF_netmask: 255.255.255.0, LIF_home_port: e0c }
+        LIF_netmask: 255.255.255.0, LIF_home_port: e0c, ipspace: "Default" }
     - { LIF_Name: INTERCLUSTER_DST, LIF_IP: 192.168.0.210, svm: cluster1, LIF_home_node: cluster1-01, 
-        LIF_netmask: 255.255.255.0, LIF_home_port: e0d }
+        LIF_netmask: 255.255.255.0, LIF_home_port: e0d, ipspace: "Default" }
 
 #-----> Create Routes
 Create_Routes:

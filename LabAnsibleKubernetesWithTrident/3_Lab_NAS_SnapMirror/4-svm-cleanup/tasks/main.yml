@@ -42,6 +42,7 @@
   netapp.ontap.na_ontap_interface:
     state: absent 
     interface_name: "{{ item.LIF_Name }}" 
+    role: intercluster
     vserver: "{{ item.svm }}" 
     hostname: "{{ netapp_hostname }}"
     username: "{{ netapp_username }}"

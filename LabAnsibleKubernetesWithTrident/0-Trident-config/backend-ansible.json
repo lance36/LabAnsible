@@ -4,6 +4,7 @@
     "backendName": "Backend-For-Ansible",
     "managementLIF": "192.168.0.135",
     "storagePrefix": "ansible_",
+    "svm": "nfs_svm",
     "username": "vsadmin",
     "password": "Netapp1!"
 }
