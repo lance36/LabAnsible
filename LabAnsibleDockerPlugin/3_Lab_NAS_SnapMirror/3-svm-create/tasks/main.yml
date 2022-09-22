@@ -38,6 +38,7 @@
     home_port: "{{ item.LIF_home_port }}" 
     home_node: "{{ item.LIF_home_node }}" 
     role: intercluster
+    ipspace: "{{ item.ipspace }}"
     address: "{{ item.LIF_IP }}"
     netmask: "{{ LIF_netmask }}"
     vserver: "{{ item.svm }}" 

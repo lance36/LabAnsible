@@ -7,7 +7,7 @@
     portal: "{{ item.iscsi_portal }}"
   with_items: "{{ iSCSI_Storage }}"
 
-- name: Create a filesystem on /dev/sdb
+- name: Create a filesystem on /dev/sdc
   filesystem:
     fstype: "{{ item.filesystem }}"
     dev: "{{ item.volume }}"
